@@ -110,18 +110,23 @@
         <div class="row" id="song-list"></div>
     </div>
     <div class="player text-light p-3">
-        <img id="album-art" src="" alt="Album Art">
-        <p id="now-playing">Select a song to play</p>
+        <img id="album-art" src="https://placehold.co/50" alt="Album Art">
+        <div class="info">
+            <p id="now-playing">Select a song to play</p>
+        </div>
         <div class="controls">
             <button onclick="playPause()">
-                <i id="play-icon" class="fa fa-pause" style="font-size:18px; color:white"></i>
+                <i id="play-icon" class="fa fa-play" style="font-size:18px; color:white"></i>
             </button>
         </div>
         <div class="progress-bar" onclick="seek(event)">
             <div class="progress" id="progress"></div>
         </div>
+        <div class="time">
+            <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+        </div>
     </div>
-    <audio id="audio-player" ontimeupdate="updateProgress()"></audio>
+    <audio id="audio-player" ontimeupdate="updateProgress()" onloadedmetadata="updateDuration()"></audio>
 </body>
 <script>
     async function searchSongs() {
@@ -163,7 +168,7 @@
         const card = document.createElement("div");
         card.classList.add("card", "text-center", "p-2");
         card.innerHTML = `
-            <img src="${song.image[1].link || 'https://via.placeholder.com/200'}" class="card-img-top" alt="${song.name}" style="border-radius: 10px; border: 3px solid #00ccff;">
+            <img src="${song.image[1].link || 'https://placehold.co/200'}" class="card-img-top" alt="${song.name}" style="border-radius: 10px; border: 3px solid #00ccff;">
             <div class="card-body">
                 <p class="card-text">${song.name || "Unknown Song"}</p>
                 <p class="artist-text">${song.primaryArtists || "Unknown Artist"}</p>
@@ -187,12 +192,21 @@
         const player = document.getElementById("audio-player");
         const progress = document.getElementById("progress");
         const progressBar = document.querySelector(".progress-bar");
+        const currentTime = document.getElementById("current-time");
 
         if (player.duration) {
             const progressPercent = (player.currentTime / player.duration) * 100;
             progress.style.width = `${progressPercent}%`;
+            currentTime.textContent = formatTime(player.currentTime);
         }
     }
+
+    function updateDuration() {
+        const player = document.getElementById("audio-player");
+        const duration = document.getElementById("duration");
+        duration.textContent = formatTime(player.duration);
+    }
+
     function seek(event) {
         const player = document.getElementById("audio-player");
         const progressBar = document.querySelector(".progress-bar");
@@ -201,6 +215,12 @@
         const width = rect.width;
         const seekTime = (offsetX / width) * player.duration;
         player.currentTime = seekTime;
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     }
 </script>
 </html>
