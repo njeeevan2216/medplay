@@ -1,0 +1,34 @@
+
+<!-- search.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="container text-center my-4">
+    <h1>Search Songs</h1>
+    <input type="text" id="search-box" class="form-control" placeholder="Search for songs..." oninput="searchSongs()">
+    <div class="row" id="search-results"></div>
+</div>
+<script>
+    function searchSongs() {
+        const query = document.getElementById("search-box").value;
+        if (!query) return;
+        fetch(`/search?q=${query}`)
+            .then(response => response.json())
+            .then(songs => {
+                const resultsContainer = document.getElementById("search-results");
+                resultsContainer.innerHTML = "";
+                songs.forEach(song => {
+                    resultsContainer.innerHTML += `
+                        <div class='col-md-3'>
+                            <div class='card' onclick="playSong('${song.downloadUrl[4].link}', '${song.name}', '${song.image[2].link}')">
+                                <img src='${song.image[2].link}' class='card-img-top'>
+                                <div class='card-body'>
+                                    <p class='card-text'>${song.name}</p>
+                                    <p class='text-muted'>${song.artist}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                });
+            });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saavn Music Player</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #121212;
+            color: white;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .search-bar {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        .card {
+            width: 220px;
+            margin: 20px;
+            background: #1e1e1e;
+            cursor: pointer;
+            transition: transform 0.3s;
+            position: relative;
+            box-shadow: 0px 4px 20px rgba(0, 128, 255, 0.4);
+            border-radius: 10px;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card-text {
+            color: #00ccff;
+            font-weight: bold;
+        }
+        .artist-text {
+            color: #cccccc;
+            font-size: 14px;
+        }
+        .player {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #222;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            border-top: 3px solid #00ccff;
+        }
+        .player img {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            border: 3px solid #00ccff;
+        }
+        #now-playing {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .controls button {
+            background: #00ccff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background: #555;
+            margin-top: 10px;
+            position: relative;
+        }
+        .progress {
+            height: 100%;
+            background: #00ccff;
+            width: 0%;
+        }
+        .row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}{% endblock %}
+    <div class="player text-light p-3">
+        <img id="album-art" src="" alt="Album Art">
+        <p id="now-playing">Select a song to play</p>
+        <div class="controls">
+            <button onclick="playPause()">▶️/⏸️</button>
+            <button onclick="stopSong()">⏹️</button>
+        </div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+    </div>
+    <audio id="audio-player" ontimeupdate="updateProgress()"></audio>
+</body>
+<script>
+    async function searchSongs() {
+        const query = document.getElementById("search-query").value;
+        const songList = document.getElementById("song-list");
+        songList.innerHTML = "";
+        try {
+            const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}`);
+            const data = await response.json();
+            const songs = data.data || [];
+            
+            if (songs.length === 0) {
+                throw new Error("No songs found");
+            }
+            
+            for (let i = 0; i < 20 && i < songs.length; i++) {
+                createSongCard(songs[i], songList);
+            }
+        } catch (error) {
+            console.error("Error fetching songs", error);
+            songList.innerHTML = "<p>No songs found</p>";
+        }
+    }
+
+    function createSongCard(song, songList) {
+        const card = document.createElement("div");
+        card.classList.add("card", "text-center", "p-2");
+        card.innerHTML = `
+            <img src="${song.image || 'https://via.placeholder.com/200'}" class="card-img-top" alt="${song.name}" style="border-radius: 10px; border: 3px solid #00ccff;">
+            <div class="card-body">
+                <p class="card-text">${song.name || "Unknown Song"}</p>
+                <p class="artist-text">${song.primaryArtists || "Unknown Artist"}</p>
+            </div>
+        `;
+        card.onclick = () => playSong(song);
+        songList.appendChild(card);
+    }
+
+    function playSong(song) {
+        const player = document.getElementById("audio-player");
+        const nowPlaying = document.getElementById("now-playing");
+        const albumArt = document.getElementById("album-art");
+        
+        player.src = song.downloadUrl[2].link || "";
+        player.play();
+        nowPlaying.textContent = `Now Playing: ${song.name || "Unknown Song"}`;
+        albumArt.src = song.image[0].link || "https://via.placeholder.com/60";
+    }
+</script>
+</html>
