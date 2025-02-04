@@ -134,7 +134,7 @@
         const songList = document.getElementById("song-list");
         songList.innerHTML = "";
         try {
-            const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}`);
+            const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}&limit=25&page=1`);
             const data = await response.json();
             const songs = data.data.results || [];
             console.log(songs);
@@ -181,6 +181,9 @@
         const player = document.getElementById("audio-player");
         const nowPlaying = document.getElementById("now-playing");
         const albumArt = document.getElementById("album-art");
+        let icon = document.getElementById("play-icon");
+        icon.classList.replace("fa-play", "fa-pause");        
+
         
         const downloadUrl = song.downloadUrl.find(url => url.quality === '320kbps') || song.downloadUrl[0];
         player.src = downloadUrl.link || "";
