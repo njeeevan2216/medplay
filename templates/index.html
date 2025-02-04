@@ -16,9 +16,9 @@
 </form>
   <div class="row" id="song-list"></div>
   <div class="row row-cols-1 row-cols-md-3 g-4">
-{%if songs!=[]%}
+{%if songs%}
   {% for song in songs %}
-  <div class="card text-center p-2">
+  <div class="card text-center p-2" onclick="playSong('{{ song.id }}')">
     <img
       src="{{ song.image[1].link|default('https://via.placeholder.com/200') }}"
       class="card-img-top"
