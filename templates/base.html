@@ -109,7 +109,6 @@
         <button class="btn btn-primary mb-3" onclick="searchSongs()">Search</button>
         <div class="row" id="song-list"></div>
     </div>
-    {% block content %}{% endblock %}
     <div class="player text-light p-3">
         <img id="album-art" src="" alt="Album Art">
         <p id="now-playing">Select a song to play</p>
@@ -118,7 +117,7 @@
                 <i id="play-icon" class="fa fa-pause" style="font-size:18px; color:white"></i>
             </button>
         </div>
-        <div class="progress-bar">
+        <div class="progress-bar" onclick="seek(event)">
             <div class="progress" id="progress"></div>
         </div>
     </div>
@@ -184,29 +183,24 @@
         nowPlaying.textContent = `Now Playing: ${song.name || "Unknown Song"}`;
         albumArt.src = song.image[0].link || "https://via.placeholder.com/60";
     }
-
-    async function playSong(song) {
+    function updateProgress() {
         const player = document.getElementById("audio-player");
-        const nowPlaying = document.getElementById("now-playing");
-        const albumArt = document.getElementById("album-art");
+        const progress = document.getElementById("progress");
+        const progressBar = document.querySelector(".progress-bar");
 
-        try {
-            const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/songs?id=${song}`);
-            const data = await response.json();
-            const songData = data.data[0];
-            console.log(songData);
-            if (songData.downloadUrl && songData.downloadUrl.length > 0) {
-                const downloadUrl = songData.downloadUrl.find(url => url.quality === '320kbps') || songData.downloadUrl[0];
-                player.src = downloadUrl.link || "";
-            } else {
-                player.src = "";
-            }
-            player.play();
-            nowPlaying.textContent = `Now Playing: ${songData.name || "Unknown Song"}`;
-            albumArt.src = songData.image[0].link || "https://via.placeholder.com/60";
-        } catch (error) {
-            console.error("Error fetching song data", error);
+        if (player.duration) {
+            const progressPercent = (player.currentTime / player.duration) * 100;
+            progress.style.width = `${progressPercent}%`;
         }
+    }
+    function seek(event) {
+        const player = document.getElementById("audio-player");
+        const progressBar = document.querySelector(".progress-bar");
+        const rect = progressBar.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left;
+        const width = rect.width;
+        const seekTime = (offsetX / width) * player.duration;
+        player.currentTime = seekTime;
     }
 </script>
 </html>
