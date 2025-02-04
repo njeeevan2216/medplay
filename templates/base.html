@@ -142,11 +142,14 @@
     }
 
     function playPause() {
+        const audioPlayer = document.getElementById("audio-player");
         let icon = document.getElementById("play-icon");
         if (icon.classList.contains("fa-play")) {
             icon.classList.replace("fa-play", "fa-pause");
+            audioPlayer.play();
         } else {
             icon.classList.replace("fa-pause", "fa-play");
+            audioPlayer.pause();
         }
     }
 
