@@ -133,3 +133,15 @@ input.addEventListener("keypress", function(event) {
     searchSongs();
   }
 });
+
+let audioPlayerEvent = document.getElementById("audio-player");
+
+audioPlayerEvent.onplay = () => {
+    const playBtn = document.getElementById("play-icon");
+    playBtn.classList.replace("fa-play", "fa-pause");
+};
+
+audioPlayerEvent.onpause = () => {
+    const playBtn = document.getElementById("play-icon");
+    playBtn.classList.replace("fa-pause", "fa-play");
+};
