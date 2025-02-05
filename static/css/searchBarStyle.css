@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Funnel+Display:wght@300..800&display=swap');
+
+::selection{
+    background: #ffd52d;
+    color: #2c2c2c;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #2c2c2c; /*19161c*/
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Funnel Display", serif;
+    font-weight: 500;
+}
+
+.title {
+    padding-top: 50px;
+    margin-bottom: 0;
+    position: relative;
+    align-self: center;
+    color: white;
+    font-size: 50px;
+}
+.tagline {
+    margin-top: 10px;
+    padding: none;
+    position: relative;
+    align-self: center;
+    color: #ffd52d;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;  /* Align items to the top */
+    padding-top: 20px; /* Adjust as needed */
+}
+.box-search{
+    position: relative;
+    align-self: center;
+}
+
+.input {
+    padding: 10px;
+    padding-right: 60px;
+    width: 80px;
+    height: 80px;
+    background: none;
+    border: 4px solid #ffd52d;
+    border-radius: 50px;
+    box-sizing: border-box;
+    font-size: 20px;
+    font-family: "Funnel Display", serif;
+    color: white;
+    outline: none;
+    transition: .5s;
+}
+
+.box:hover input{
+    width: 350px;
+    background: #1e1e1e;/*3b3640*/
+    border-radius: 10px;
+}
+.box-search .icon-search{
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translate(-50%,-50%);
+    font-size: 26px;
+    color: #ffd52d;
+    transition: .2s;
+}
+

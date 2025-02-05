@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Search Box -1</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css'>
+  <script src="https://kit.fontawesome.com/ecaf831147.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename="css/searchBarStyle.css")}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename="css/cards.css")}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename="css/playerContainer.css")}}">
+
+</head>
+<body>
+    <h1 class = "title">Medplay</h1>
+    <p class = "tagline">ad-free modern music player</p>
+    <div class = "search-container">
+        <div class="box-search">
+            <input type="text" class="input" name="txt" id="search-query"></input>
+
+            <i class="fas fa-search icon-search"></i>
+        
+        </div>
+    </div>
+    <!--cards section start here-->
+    <div class = "song-container">
+        <div class = "cards" id="song-list"> 
+        </div>
+    </div>
+
+    <!--player-container starts here-->
+    <div class = "player-container">
+        <div class = "player-box">
+            <img id = "album-art" src ="https://placehold.co/100" class = "images"></img>
+            <div class = "song-details">
+                <span id = "now-playing" class="song-name">Song Name</span>
+                <span class="artist-name">Artist Name</span>
+            </div>
+            <div class="player-btn-holder">
+                <div class = "player-play-btn" onclick="playPause()">
+                    <i id = "play-icon" class="fa-solid fa-play"></i>
+                </div>
+            </div> 
+            <div class="progress-tracker-holder" onclick="seek(event)">
+                <div  class = "progress-tracker"><div id= "progress" class = "progress-tracker-update"></div></div>
+            </div>
+            <div class="time" style="color: white;">
+                <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+            </div>
+        </div>
+    </div>
+<audio id = "audio-player" ontimeupdate="updateProgress()" onloadedmetadata="updateDuration()"></audio>
+</body>
+<script src = "{{ url_for('static', filename="js/main.js")}}"></script>
+<script src = "{{ url_for('static', filename="js/searchBarAnimation.js")}}"></script>
+
+</html>

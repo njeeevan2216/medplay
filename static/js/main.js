@@ -35,16 +35,25 @@ function playPause() {
 
 function createSongCard(song, songList) {
     const card = document.createElement("div");
-    card.classList.add("card", "text-center", "p-2");
+    card.classList.add("card");
     const imageUrl = `/image/?url=${encodeURIComponent(song.image[1].link || 'https://via.placeholder.com/200')}`;
     card.innerHTML = `
-        <img src="${imageUrl}" class="card-img-top" alt="${song.name}" style="border-radius: 10px; border: 3px solid #00ccff;">
-        <div class="card-body">
-            <p class="card-text">${song.name || "Unknown Song"}</p>
-            <p class="artist-text">${song.primaryArtists || "Unknown Artist"}</p>
-        </div>
+        <img src ="${imageUrl}" class = "images"></img>
+                <div class = "card-body">
+                    <span class="song-name">${song.name ||"Unkown Song"}</span>
+                    <span class="artist-name">${song.primaryArtists ||"Unkown Artist"}</span>
+                    <div class="play-down">
+                        <div class = "play-btn")><i class="fa-solid fa-play"></i></div>
+                        <div class = "download-btn"><i class="fas fa-download"></i></div>
+                    </div>
+                </div>
     `;
-    card.onclick = () => playmySong(song);
+    const play= card.querySelector(".play-btn");
+    play.onclick = () => playmySong(song);
+
+    const down = card.querySelector(".download-btn");
+    down.onclick = () => downloadSong(song);
+
     songList.appendChild(card);
 }
 function playmySong(song) {
@@ -53,7 +62,7 @@ function playmySong(song) {
     const albumArt = document.getElementById("album-art");
     let icon = document.getElementById("play-icon");
     icon.classList.replace("fa-play", "fa-pause");
-    const artLink = `/image/?url=${encodeURIComponent(song.image[0].link || 'https://via.placeholder.com/60')}`;
+    const artLink = `/image/?url=${encodeURIComponent(song.image[1].link || 'https://via.placeholder.com/60')}`;
     let URL = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
     albumArt.src = artLink;
     console.log(URL);
@@ -66,7 +75,7 @@ function playmySong(song) {
 function updateProgress() {
     const player = document.getElementById("audio-player");
     const progress = document.getElementById("progress");
-    const progressBar = document.querySelector(".progress-bar");
+    const progressBar = document.querySelector(".progress-tracker");
     const currentTime = document.getElementById("current-time");
 
     if (player.duration) {
@@ -96,7 +105,7 @@ function updateDuration() {
 
 function seek(event) {
     const player = document.getElementById("audio-player");
-    const progressBar = document.querySelector(".progress-bar");
+    const progressBar = document.querySelector(".progress-tracker");
     const rect = progressBar.getBoundingClientRect();
     const offsetX = event.clientX - rect.left;
     const width = rect.width;
@@ -109,3 +118,16 @@ function formatTime(seconds) {
     const secs = Math.floor(seconds % 60);
     return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
 }
+
+var input = document.getElementById("search-query");
+
+// Execute a function when the user presses a key on the keyboard
+input.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    searchSongs();
+  }
+});
