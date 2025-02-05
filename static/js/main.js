@@ -145,3 +145,10 @@ audioPlayerEvent.onpause = () => {
     const playBtn = document.getElementById("play-icon");
     playBtn.classList.replace("fa-pause", "fa-play");
 };
+
+document.addEventListener('keydown', function(event) {
+    if (event.code === "Space" && !event.target.matches("input, textarea")) {
+        event.preventDefault();
+        playPause();
+    }
+});
