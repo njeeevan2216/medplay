@@ -183,16 +183,16 @@
         const nowPlaying = document.getElementById("now-playing");
         const albumArt = document.getElementById("album-art");
         let icon = document.getElementById("play-icon");
-        icon.classList.replace("fa-play", "fa-pause");        
+        icon.classList.replace("fa-play", "fa-pause");
+        const artLink = `/image/?url=${encodeURIComponent(song.image[0].link || 'https://via.placeholder.com/60')}`;
         let URL = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
-    
+        albumArt.src = artLink;
         console.log(URL);
         const downloadUrl = `/stream/?url=${encodeURIComponent(URL)}`;
         console.log(downloadUrl);
         player.src = downloadUrl || "";
         player.play();
         nowPlaying.textContent = `${song.name || "Unknown Song"}`;
-        albumArt.src = song.image[0].link || "https://via.placeholder.com/60";
     }
     function updateProgress() {
         const player = document.getElementById("audio-player");
