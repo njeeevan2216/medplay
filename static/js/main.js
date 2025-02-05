@@ -131,5 +131,25 @@ input.addEventListener("keypress", function(event) {
     event.preventDefault();
     // Trigger the button element with a click
     searchSongs();
+    input.blur();
   }
+});
+
+let audioPlayerEvent = document.getElementById("audio-player");
+
+audioPlayerEvent.onplay = () => {
+    const playBtn = document.getElementById("play-icon");
+    playBtn.classList.replace("fa-play", "fa-pause");
+};
+
+audioPlayerEvent.onpause = () => {
+    const playBtn = document.getElementById("play-icon");
+    playBtn.classList.replace("fa-pause", "fa-play");
+};
+
+document.addEventListener('keydown', function(event) {
+    if (event.code === "Space" && !event.target.matches("input, textarea")) {
+        event.preventDefault();
+        playPause();
+    }
 });
