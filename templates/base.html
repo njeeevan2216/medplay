@@ -106,7 +106,7 @@
     <div class="container text-center my-4">
         <h1 class="mb-4">Medplay</h1>
         <input type="text" id="search-query" class="form-control search-bar" placeholder="Search for a song...">
-        <button class="mb-3" onclick="searchSongs()">Search</button>
+        <button class="btn btn-primary mb-3" onclick="searchSongs()">Search</button>
         <div class="row" id="song-list"></div>
     </div>
     <div class="player text-light p-3">
@@ -167,8 +167,9 @@
     function createSongCard(song, songList) {
         const card = document.createElement("div");
         card.classList.add("card", "text-center", "p-2");
+        const imageUrl = `/image/?url=${encodeURIComponent(song.image[1].link || 'https://via.placeholder.com/200')}`;
         card.innerHTML = `
-            <img src="${song.image[1].link || 'https://placehold.co/200'}" class="card-img-top" alt="${song.name}" style="border-radius: 10px; border: 3px solid #00ccff;">
+            <img src="${imageUrl}" class="card-img-top" alt="${song.name}" style="border-radius: 10px; border: 3px solid #00ccff;">
             <div class="card-body">
                 <p class="card-text">${song.name || "Unknown Song"}</p>
                 <p class="artist-text">${song.primaryArtists || "Unknown Artist"}</p>
@@ -183,10 +184,12 @@
         const albumArt = document.getElementById("album-art");
         let icon = document.getElementById("play-icon");
         icon.classList.replace("fa-play", "fa-pause");        
-
-        
-        const downloadUrl = song.downloadUrl.find(url => url.quality === '320kbps') || song.downloadUrl[0];
-        player.src = downloadUrl.link || "";
+        let URL = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
+    
+        console.log(URL);
+        const downloadUrl = `/stream/?url=${encodeURIComponent(URL)}`;
+        console.log(downloadUrl);
+        player.src = downloadUrl || "";
         player.play();
         nowPlaying.textContent = `${song.name || "Unknown Song"}`;
         albumArt.src = song.image[0].link || "https://via.placeholder.com/60";
@@ -202,6 +205,18 @@
             progress.style.width = `${progressPercent}%`;
             currentTime.textContent = formatTime(player.currentTime);
         }
+    }
+    function downloadSong(song) {
+        const downloadUrl = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
+        const filename = `${song.name || "Unknown_Song"}`;
+        console.log(downloadUrl);
+        console.log(filename);
+        const link = document.createElement('a');
+        link.href = `/download/?url=${downloadUrl}&filename=${filename}`;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     function updateDuration() {
