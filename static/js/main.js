@@ -36,7 +36,7 @@ function playPause() {
 function createSongCard(song, songList) {
     const card = document.createElement("div");
     card.classList.add("card");
-    const imageUrl = `/image/?url=${encodeURIComponent(song.image[1].link || 'https://via.placeholder.com/200')}`;
+    const imageUrl = `/image/?url=${encodeURIComponent(song.image[1].link || `{{ url_for('static', filename="img/plc.png")}}`)}`;
     card.innerHTML = `
         <img src ="${imageUrl}" class = "images"></img>
                 <div class = "card-body">
@@ -63,7 +63,7 @@ function playmySong(song) {
     const albumArt = document.getElementById("album-art");
     let icon = document.getElementById("play-icon");
     icon.classList.replace("fa-play", "fa-pause");
-    const artLink = `/image/?url=${encodeURIComponent(song.image[1].link || 'https://via.placeholder.com/60')}`;
+    const artLink = `/image/?url=${encodeURIComponent(song.image[1].link || `{{ url_for('static', filename="img/plc.png")}}`)}`;
     let URL = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
     albumArt.src = artLink;
     console.log(URL);
