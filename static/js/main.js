@@ -59,6 +59,7 @@ function createSongCard(song, songList) {
 function playmySong(song) {
     const player = document.getElementById("audio-player");
     const nowPlaying = document.getElementById("now-playing");
+    const nowArtist = document.getElementById("artist-name");
     const albumArt = document.getElementById("album-art");
     let icon = document.getElementById("play-icon");
     icon.classList.replace("fa-play", "fa-pause");
@@ -71,6 +72,7 @@ function playmySong(song) {
     player.src = downloadUrl || "";
     player.play();
     nowPlaying.textContent = `${song.name || "Unknown Song"}`;
+    nowArtist.textContent = `${song.primaryArtists || "Unknown Artist"}`;
 }
 function updateProgress() {
     const player = document.getElementById("audio-player");
