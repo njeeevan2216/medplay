@@ -131,6 +131,7 @@ input.addEventListener("keypress", function(event) {
     event.preventDefault();
     // Trigger the button element with a click
     searchSongs();
+    input.blur();
   }
 });
 
