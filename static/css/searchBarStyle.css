@@ -38,7 +38,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;  /* Align items to the top */
-    padding-top: 20px; /* Adjust as needed */
+    padding-top: 20px; 
 }
 .box-search{
     position: relative;
@@ -63,7 +63,7 @@ body {
 
 .box:hover input{
     width: 350px;
-    background: #1e1e1e;/*3b3640*/
+    background: #1e1e1e;
     border-radius: 10px;
 }
 .box-search .icon-search{

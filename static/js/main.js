@@ -37,11 +37,21 @@ function createSongCard(song, songList) {
     const card = document.createElement("div");
     card.classList.add("card");
     const imageUrl = `/image/?url=${encodeURIComponent(song.image[1].link || `{{ url_for('static', filename="img/plc.png")}}`)}`;
+    //name slicing
+    let new_name = song.name;
+    let new_art_name = song.primaryArtists;
+    if (new_name.length > 16) {
+        new_name = new_name.slice(0,16)+"...";
+    }
+    if (new_art_name.length > 25) {
+        new_art_name = new_art_name.slice(0,25)+"...";
+    }
+    //slicing end
     card.innerHTML = `
         <img src ="${imageUrl}" class = "images"></img>
                 <div class = "card-body">
-                    <span class="song-name song-name-card">${song.name ||"Unkown Song"}</span>
-                    <span class="artist-name artist-name-card">${song.primaryArtists ||"Unkown Artist"}</span>
+                    <span class="song-name song-name-card">${new_name ||"Unkown Song"}</span>
+                    <span class="artist-name artist-name-card">${new_art_name ||"Unkown Artist"}</span>
                     <div class="play-down">
                         <div class = "play-btn")><i class="fa-solid fa-play"></i></div>
                         <div class = "download-btn"><i class="fas fa-download"></i></div>
@@ -73,8 +83,18 @@ function playmySong(song) {
     console.log(downloadUrl);
     player.src = downloadUrl || "";
     player.play();
-    nowPlaying.textContent = `${song.name || "Unknown Song"}`;
-    nowArtist.textContent = `${song.primaryArtists || "Unknown Artist"}`;
+    // name slicing
+    let new_name = song.name;
+    let new_art_name = song.primaryArtists;
+    if (new_name.length > 21) {
+        new_name = new_name.slice(0,18)+"...";
+    }
+    if (new_art_name.length > 25) {
+        new_art_name = new_art_name.slice(0,25)+"...";
+    }
+    //slicing end
+    nowPlaying.textContent = `${new_name || "Unknown Song"}`;
+    nowArtist.textContent = `${new_art_name || "Unknown Artist"}`;
 }
 function updateProgress() {
     const player = document.getElementById("audio-player");
@@ -99,7 +119,13 @@ function downloadSong(song) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    showNotif(song.image[1].link, song.name);
+    // name slicing
+    let new_name = song.name;
+    if (new_name.length > 16) {
+        new_name = new_name.slice(0,16);
+    }
+    //slicing end
+    showNotif(song.image[1].link, new_name);
 }
 
 function updateDuration() {
@@ -164,7 +190,7 @@ function showNotif(url, name) {
         <img id="d-art" src=""></img>
         <div class="notif-desc">
             <div class="download-desc">
-                <span id ="d-name" style = "color: #ffd52d;">${name}.mp3</span>
+                <span id ="d-name" style = "color: #ffd52d;">${name}</span>
                 <span >will be downloaded</span>
             </div>
             <span class="please-wait">please wait for a while</span>
