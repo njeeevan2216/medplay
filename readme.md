@@ -15,7 +15,7 @@ Medplay is an ad-free modern music player built with Flask and JavaScript. It al
 - **HTML/CSS**: For structuring and styling the web application.
 - **JavaScript**: For adding interactivity and functionality.
 - **Font Awesome**: For using icons in the application.
-- **Django**: For serving static files and templates.
+- **Flask**: For serving static files and templates.
 
 ## Project Structure
 
