@@ -3,14 +3,17 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    flex-direction: column;
     margin: 50px auto;
+    padding-bottom: 200px;
+    
 }
 
 .cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 60px;
-    margin-bottom: 200px;
+    margin-bottom: 20px;
     justify-items: center;
 }
 
