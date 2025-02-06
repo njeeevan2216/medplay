@@ -1,0 +1,32 @@
+.notification-holder {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    max-width: 300px;
+    max-height: 150px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.notification-box {
+    background: #242424;
+    border: 2px solid white;
+    border-radius: 17px;
+    display: flex;
+    padding: 10px;
+}
+
+.notif-desc {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+.please-wait {
+    padding-top: 10px;
+    font-size: 12px;
+}
+

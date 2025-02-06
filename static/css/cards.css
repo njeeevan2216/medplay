@@ -84,6 +84,7 @@ img {
     height: 100px;
 }
 
+
 @media only screen and (max-width: 1350px) { 
     .cards {
         display: grid;
@@ -151,6 +152,6 @@ img {
         padding-top: 20px;
     }
 
-
-
 }
+
+
