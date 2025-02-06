@@ -40,8 +40,8 @@ function createSongCard(song, songList) {
     card.innerHTML = `
         <img src ="${imageUrl}" class = "images"></img>
                 <div class = "card-body">
-                    <span class="song-name">${song.name ||"Unkown Song"}</span>
-                    <span class="artist-name">${song.primaryArtists ||"Unkown Artist"}</span>
+                    <span class="song-name song-name-card">${song.name ||"Unkown Song"}</span>
+                    <span class="artist-name artist-name-card">${song.primaryArtists ||"Unkown Artist"}</span>
                     <div class="play-down">
                         <div class = "play-btn")><i class="fa-solid fa-play"></i></div>
                         <div class = "download-btn"><i class="fas fa-download"></i></div>
