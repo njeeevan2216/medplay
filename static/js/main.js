@@ -12,13 +12,17 @@ async function searchSongs() {
             throw new Error("No songs found");
         }
         
-        for (let i = 0; i < 20 && i < songs.length; i++) {
+        for (let i = 0; i < 25 && i < songs.length; i++) {
             createSongCard(songs[i], songList);
         }
     } catch (error) {
         console.error("Error fetching songs", error);
         songList.innerHTML = "<p>No songs found</p>";
     }
+
+    // enables the more icon option
+    let more_icon = document.getElementById("more")
+    more_icon.style.display= "block";
 }
 
 function playPause() {
