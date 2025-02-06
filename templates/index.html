@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename="css/searchBarStyle.css")}}">
   <link rel="stylesheet" href="{{ url_for('static', filename="css/cards.css")}}">
   <link rel="stylesheet" href="{{ url_for('static', filename="css/playerContainer.css")}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename="css/notification.css")}}">
 
 </head>
 <body>
@@ -50,6 +51,12 @@
         </div>
     </div>
 <audio id = "audio-player" ontimeupdate="updateProgress()" onloadedmetadata="updateDuration()"></audio>
+
+<!--notification-->
+<div id="notification-holder" class = "notification-holder">
+    
+</div>
+
 </body>
 <script src = "{{ url_for('static', filename="js/main.js")}}"></script>
 <script src = "{{ url_for('static', filename="js/searchBarAnimation.js")}}"></script>
