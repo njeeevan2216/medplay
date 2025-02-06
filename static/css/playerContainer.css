@@ -44,12 +44,20 @@
     align-items: center;
 }
 
+.player-play-btn:hover {
+    cursor: pointer;
+}
+
 .progress-tracker-holder {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     padding: 20px;
+}
+
+.progress-tracker-holder:hover {
+    cursor: pointer;
 }
 
 .progress-tracker {
