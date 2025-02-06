@@ -52,8 +52,10 @@ function createSongCard(song, songList) {
     play.onclick = () => playmySong(song);
 
     const down = card.querySelector(".download-btn");
-    down.onclick = () => downloadSong(song);
-
+    down.onclick = () => {
+        downloadSong(song);
+        
+    }
     songList.appendChild(card);
 }
 function playmySong(song) {
@@ -97,6 +99,7 @@ function downloadSong(song) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    showNotif(song.image[1].link, song.name);
 }
 
 function updateDuration() {
@@ -153,3 +156,37 @@ document.addEventListener('keydown', function(event) {
         playPause();
     }
 });
+
+function showNotif(url, name) {
+    let div = document.getElementById("notification-holder")
+    div.innerHTML = `
+    <div class="notification-box">
+        <img id="d-art" src=""></img>
+        <div class="notif-desc">
+            <div class="download-desc">
+                <span id ="d-name" style = "color: #ffd52d;">${name}.mp3</span>
+                <span >will be downloaded</span>
+            </div>
+            <span class="please-wait">please wait for a while</span>
+        </div>
+    </div>
+    `;
+    const image_notif = document.getElementById("d-art");
+    image_notif.src = `${url}`;
+
+    div.style.display = "block";
+
+    setTimeout(() => {
+        
+        div.style.opacity = "1";
+    }, 10);
+    
+    setTimeout(() => {
+        div.style.opacity = "0"; 
+        setTimeout(() => {
+            div.style.display = "none"
+            div.innerHTML=``;
+        }, 1000);
+    }, 5000);   
+
+}
