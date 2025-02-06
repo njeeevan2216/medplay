@@ -58,6 +58,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.play-btn:hover{
+    cursor: pointer;
+}
+
 .download-btn{
     border-radius: 6px;
     width: 20px;
@@ -68,6 +73,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.download-btn:hover{
+    cursor: pointer;
 }
 
 .song-name {
@@ -85,6 +94,16 @@ img {
     border-radius: 8px;
     width: 100px;
     height: 100px;
+}
+
+.more {
+    color: white;
+    padding-top: 20px;
+    display: none;
+}
+
+.more:hover {
+    cursor: pointer;
 }
 
 
