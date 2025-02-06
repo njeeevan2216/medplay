@@ -18,7 +18,7 @@
         <div class="box-search">
             <input type="text" class="input" name="txt" id="search-query"></input>
 
-            <i class="fas fa-search icon-search"></i>
+            <i class="fas fa-search icon-search" onclick="searchSongs()"></i>
         
         </div>
     </div>
@@ -31,10 +31,10 @@
     <!--player-container starts here-->
     <div class = "player-container">
         <div class = "player-box">
-            <img id = "album-art" src ="{{ url_for('static', filename="img/plc.png")}}" class = "images"></img>
+            <img id = "album-art" src ="{{ url_for('static', filename="img/plc.png")}}" class = "album-image-player"></img>
             <div class = "song-details">
                 <span id = "now-playing" class="song-name">Song Name</span>
-                <span class="artist-name" id="artist-name">Artist Name</span>
+                <span class="artist-name artist-name-vanish" id="artist-name">Artist Name</span>
             </div>
             <div class="player-btn-holder">
                 <div class = "player-play-btn" onclick="playPause()">
