@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     box.addEventListener("mouseenter", function () {
         if (!expanded) {
             input.style.width = "350px";
-            input.style.background = "#242424";//3b3640
+            input.style.background = "#242424";
             input.style.borderRadius = "10px";
             expanded = true;
         }
