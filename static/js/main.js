@@ -12,7 +12,7 @@ async function searchSongs(isNew) {
         else {
             pageNo = 1;
         }
-        const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}&limit=25&page=${pageNo}`);
+        const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}&limit=24&page=${pageNo}`);
         const data = await response.json();
         const songs = data.data.results || [];
         console.log(songs);
