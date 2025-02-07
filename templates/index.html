@@ -10,9 +10,22 @@
   <link rel="stylesheet" href="{{ url_for('static', filename="css/cards.css")}}">
   <link rel="stylesheet" href="{{ url_for('static', filename="css/playerContainer.css")}}">
   <link rel="stylesheet" href="{{ url_for('static', filename="css/notification.css")}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename="css/themeBox.css")}}">
+
+
 
 </head>
 <body>
+    <div class="theme-container">
+        <div class="theme-holder">
+            <h2 class="theme-title">Themes</h2>
+            <div id="theme-box" class="theme-box">
+                
+            </div>
+        </div>
+        <div class="theme-open-button" onclick="dropTheme()"><i id = "theme-icon" class="fa-solid fa-caret-down"></i></div>
+    </div>
+    
     <h1 class = "title">Medplay</h1>
     <p class = "tagline">ad-free modern music player</p>
     <div class = "search-container">
@@ -51,7 +64,7 @@
                     <div id="progress-circle" class="progress-circle"></div>
                 </div>
             </div>
-            <div class="time" style="color: white;">
+            <div class="time">
                 <span id="current-time">0:00</span> / <span id="duration">0:00</span>
             </div>
         </div>
@@ -66,5 +79,14 @@
 </body>
 <script src = "{{ url_for('static', filename="js/main.js")}}"></script>
 <script src = "{{ url_for('static', filename="js/searchBarAnimation.js")}}"></script>
+<script src = "{{ url_for('static', filename="js/themer.js")}}"></script>
 
 </html>
+<!--<div class="theme theme-id" onclick = "changeColor(c1,c2,c3,c4)">
+                    <span class="theme-name">Theme</span>
+                    <div class="theme-color-box">
+                        <div class="theme-color"></div>
+                        <div class="theme-color"></div>
+                        <div class="theme-color"></div>
+                    </div>
+                </div>-->

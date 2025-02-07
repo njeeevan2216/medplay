@@ -10,8 +10,8 @@
 }
 
 .notification-box {
-    background: #242424;
-    border: 2px solid white;
+    background: var(--card-back);
+    border: 2px solid var(--text-notif);
     border-radius: 17px;
     display: flex;
     padding: 10px;
@@ -22,7 +22,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: white;
+    color: var(--text-notif);
 }
 
 .please-wait {
