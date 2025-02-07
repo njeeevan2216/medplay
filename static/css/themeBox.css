@@ -6,6 +6,7 @@
 }
 
 .theme-holder {
+    width: 99%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,14 +15,24 @@
     border-bottom: 4px solid var(--out-accent);
     width: 100%;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin: 0;
 }
 
 .theme-box {
+    width: 95%;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-auto-flow: column;
     gap: 15px;
     padding: 20px;
+    overflow-x: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
 }
+
+.theme-box::-webkit-scrollbar {
+    display: none;
+}
+  
 
 .theme {
     width: 275px;
@@ -83,7 +94,7 @@
 
 
 
-@media only screen and (max-width: 1700px) {
+@media only screen and (max-width: 1750px) {
     .theme-box {
         grid-template-columns: repeat(5, 1fr);
     }
