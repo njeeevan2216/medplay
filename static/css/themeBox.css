@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: center;
     color: white;
-    border-bottom: 4px solid white;
+    border-bottom: 4px solid var(--out-accent);
     width: 100%;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
@@ -32,11 +32,13 @@
     align-items: center;
     justify-content: center;
     gap: 15px;
+    transition: transform 0.2s ease;
 }
 
 .theme:hover {
     cursor: pointer;
     transform: scale(1.05);
+    
 }
 .theme:hover .theme-color-box {
     display: flex;
@@ -45,7 +47,7 @@
 .theme-open-button {
     width: 80px;
     height: 30px;
-    background: white;
+    background: var(--out-accent);
     align-self: center;
     border-radius: 0 0 8px 8px;
     display: flex;
@@ -53,9 +55,6 @@
     justify-content: center;
 }
 
-.theme-name {
-    color: black;
-}
 
 .theme-color-box {
     display: none;
@@ -70,6 +69,19 @@
     border-radius: 20px;
     background: #000;
 }
+
+.theme-name {
+    color: black;
+}
+
+
+
+
+
+
+
+
+
 
 @media only screen and (max-width: 1700px) {
     .theme-box {

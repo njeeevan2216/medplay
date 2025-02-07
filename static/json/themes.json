@@ -1,0 +1,62 @@
+[
+    {
+        "className": "monkey-type",
+        "name": "Monkey Type",
+        "colors": ["#ffffff", "#2c2c2c", "#242424", "#ffd52d"]
+    },
+    {
+        "className": "magluv",
+        "name": "Magluv",
+        "colors": ["#ffffff", "#242424", "#1a1a1d", "#a12f81"]
+    },
+    {
+        "className": "sakun",
+        "name": "Sakun",
+        "colors": ["#6D2323", "#FEF9E1", "#E5D0AC", "#d82929"]
+    },
+    {
+        "className": "frostleaf",
+        "name": "Frostleaf",
+        "colors": ["#366d62", "#f1f8e8", "#e5f5e1", "#7bac93"]
+    },
+    {
+        "className": "gitspot",
+        "name": "GitSpot",
+        "colors": ["#ffffff", "#212830", "#1e242b", "#40cd5b"]
+    },
+    {
+        "className": "dull-flare",
+        "name": "Dull Flare",
+        "colors": ["#ffffff", "#2b404e", "#153448", "#e0c08b"]
+    },
+    {
+        "className": "ikea",
+        "name": "IKEA",
+        "colors": ["#ffffff", "#154772", "#013058", "#ffcc02"]
+    },
+    {
+        "className": "rose-pine",
+        "name": "Rose Pine",
+        "colors": ["#9ccfd8", "#1f1d27", "#191720", "#c4a7e7"]
+    },
+    {
+        "className": "light-high",
+        "name": "Light High",
+        "colors": ["#000000", "#ffffff", "#ffffff", "#000000"]
+    },
+    {
+        "className": "dark-high",
+        "name": "Dark High",
+        "colors": ["#ffffff", "#000000", "#000000", "#ffffff"]
+    },
+    {
+        "className": "solar-smoke",
+        "name": "Solar Smoke",
+        "colors": ["#e3d5ba", "#313131", "#282828", "#f06b0e"]
+    },
+    {
+        "className": "apt",
+        "name": "APT",
+        "colors": ["#ffffff", "#fca9ac", "#f37f83", "#e53c58"]
+    }
+]

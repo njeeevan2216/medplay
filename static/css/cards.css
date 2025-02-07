@@ -1,57 +1,9 @@
-/*:root {
+:root {
     --text-notif: #ffffff;
     --back-dark: #2c2c2c;
     --card-back: #242424;
     --out-accent: #ffd52d;
-} */
-
-
-/* magluv
-:root { 
-    --text-notif: #ffffff;
-    --back-dark:  #242424 ;
-    --card-back:    #1a1a1d;
-    --out-accent:   #a12f81;
-}
-*/
-
-/* ikea
-:root { 
-    --text-notif: #fff  ;
-    --back-dark: #00549d ;
-    --card-back:  #004784;
-    --out-accent: #ffcc02;
-}
-*/
-
-/* sakun -sayee kunju
-:root { 
-    --text-notif: #6D2323  ;
-    --back-dark: #FEF9E1 ;
-    --card-back:  #E5D0AC;
-    --out-accent: #A31D1D;
-}
-*/
-
-/* jeevanaa
-:root { 
-    --text-notif: #43887a  ;
-    --back-dark: #f1f8e8 ;
-    --card-back:  #e5f5e1;
-    --out-accent: #7bac93;
-}
-*/
-/*broken is also another theme*/
-
-/* gitspot
-:root { 
-    --text-notif: #ffffff;
-    --back-dark: #212830;
-    --card-back:  #1e242b;
-    --out-accent: #40cd5b;
-}
-*/
-
+} 
 
 .song-container {
     max-width: 1200px;
