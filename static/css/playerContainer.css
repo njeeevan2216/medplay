@@ -56,22 +56,34 @@
     padding: 20px;
 }
 
-.progress-tracker-holder:hover {
-    cursor: pointer;
-}
-
 .progress-tracker {
     height: 4px;
     background: white;
     width: 100%;
+    position: relative;
 }
 .progress-tracker-update {
     height: 4px;
     width: 0%;
     background: #ffd52d;
+    position: relative;
 }
+
+.progress-tracker-holder:hover {
+    cursor: pointer;
+}
+
 .time {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.progress-circle {
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: -4px;
+    left: 0;
 }
