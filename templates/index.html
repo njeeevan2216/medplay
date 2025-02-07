@@ -31,8 +31,7 @@
     <div class = "search-container">
         <div class="box-search">
             <input type="text" class="input" name="txt" id="search-query"></input>
-
-            <i class="fas fa-search icon-search" onclick="searchSongs()"></i>
+            <i class="fas fa-search icon-search" onclick="searchSongs(true)"></i>
         
         </div>
     </div>
@@ -42,7 +41,7 @@
 
         </div>
 
-        <span id="more" class="more">more...</span>
+        <span id="more" class="more" onclick="searchSongs(false)">more...</span>
     </div>
 
     <!--player-container starts here-->
@@ -59,7 +58,11 @@
                 </div>
             </div> 
             <div class="progress-tracker-holder" onclick="seek(event)">
-                <div  class = "progress-tracker"><div id= "progress" class = "progress-tracker-update"></div></div>
+                <div class="progress-tracker">
+                    <div id="progress" class="progress-tracker-update">
+                    </div>
+                    <div id="progress-circle" class="progress-circle"></div>
+                </div>
             </div>
             <div class="time">
                 <span id="current-time">0:00</span> / <span id="duration">0:00</span>
