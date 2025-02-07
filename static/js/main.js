@@ -159,6 +159,7 @@ function updateQueueDisplay() {
         const queueItem = document.createElement("div");
         queueItem.classList.add("queue-item");
         queueItem.textContent = `${index + 1}. ${song.name} - ${song.primaryArtists}`;
+        queueItem.setAttribute("draggable", true);
         queueContainer.appendChild(queueItem);
     });
 }
@@ -250,4 +251,27 @@ function showNotif(url, name) {
         }, 1000);
     }, 5000);   
 
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const queueList = document.getElementById("queue-list");
+    new Sortable(queueList, {
+        animation: 150,
+        onEnd: function(evt) {
+            const oldIndex = evt.oldIndex;
+            const newIndex = evt.newIndex;
+            moveQueueItem(oldIndex, newIndex);
+        }
+    });
+});
+
+function moveQueueItem(oldIndex, newIndex) {
+    if (newIndex >= songQueue.length) {
+        let k = newIndex - songQueue.length + 1;
+        while (k--) {
+            songQueue.push(undefined);
+        }
+    }
+    songQueue.splice(newIndex, 0, songQueue.splice(oldIndex, 1)[0]);
+    updateQueueDisplay();
 }
