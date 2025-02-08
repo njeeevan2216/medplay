@@ -1,3 +1,78 @@
+async function fetchAsArrayBuffer(url) {
+    const response = await fetch(url);
+    return response.arrayBuffer();
+}
+
+async function convertMp4ToMp3(mp4Url, imageUrl, artist, title, album, year, genre) {
+    const { createFFmpeg, fetchFile } = await import("https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.5/+esm");
+    const { default: ID3Writer } = await import("https://cdn.jsdelivr.net/npm/browser-id3-writer@4.0.0/+esm");
+
+    const ffmpeg = createFFmpeg({ log: true });
+
+    try {
+        if (!mp4Url || !imageUrl) {
+            alert("Metadata is missing MP4 or Image URLs!");
+            return;
+        }
+
+        if (!ffmpeg.isLoaded()) {
+            await ffmpeg.load();
+        }
+
+        const mp4Buffer = await fetchAsArrayBuffer(mp4Url);
+        const imageBuffer = await fetchAsArrayBuffer(imageUrl);
+
+        ffmpeg.FS("writeFile", "input.mp4", new Uint8Array(mp4Buffer));
+        await ffmpeg.run("-i", "input.mp4", "-vn", "-b:a", "192k", "output.mp3");
+
+        const mp3Data = ffmpeg.FS("readFile", "output.mp3");
+
+        const writer = new ID3Writer(mp3Data);
+        writer.setFrame("TPE1", artist)
+              .setFrame("TIT2", title)
+              .setFrame("TALB", album)
+              .setFrame("TYER", year)
+              .setFrame("TCON", genre)
+              .setFrame("APIC", { type: 3, data: new Uint8Array(imageBuffer), description: "Cover" });
+        writer.addTag();
+
+        const mp3Blob = new Blob([writer.arrayBuffer], { type: "audio/mp3" });
+        const mp3Url = URL.createObjectURL(mp3Blob);
+
+        const link = document.createElement("a");
+        link.href = mp3Url;
+        link.download = `${title || "Unknown_Song"}.mp3`;
+        link.click();
+
+    } catch (error) {
+        console.error("Error processing files:", error);
+        alert("Conversion failed! Check the URLs.");
+    }
+}
+
+async function downloadSong(song) {
+    // name slicing
+    let new_name = song.name;
+    if (new_name.length > 16) {
+        new_name = new_name.slice(0, 16);
+    }
+    // slicing end
+    showNotif(song.image[1].link, new_name);
+    const downloadUrl = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
+    const filename = `${song.name || "Unknown_Song"}`;
+    const imageUrl = song.image[1].link;
+    const artist = Array.isArray(song.primaryArtists) ? song.primaryArtists : [song.primaryArtists];
+    const title = song.name;
+    const album = song.album.name;
+    const year = song.year;
+    const genre = Array.isArray(song.genre) ? song.genre : [song.genre];
+
+    console.log(downloadUrl);
+    console.log(filename);
+
+    await convertMp4ToMp3(downloadUrl, imageUrl, artist, title, album, year, genre);
+}
+
 function retrieve() {
     let currentTheme = localStorage.getItem("class-name");
     console.log(currentTheme);
@@ -128,65 +203,67 @@ function playmySong(song) {
     nowArtist.textContent = `${new_art_name || "Unknown Artist"}`;
     player.onended = playNextInQueue;
 }
-/*
+
+let isVis = false;
+
+function dropQueue() {
+    console.log("q");   
+
+    let queueCunt = document.querySelector(".queue-holder");
+    
+    if (isVis) {
+        queueCunt.style.transform = "translateX(358px)";   
+        isVis = false;
+    }
+    else {
+        queueCunt.style.transform = "translateX(30px)";
+        isVis = true;
+    }
+}
+
+const progressTrackerHolder = document.querySelector('.progress-tracker-holder');
+const progressTracker = document.querySelector('.progress-tracker');
+const progress = document.getElementById('progress');
+const progressCircle = document.getElementById('progress-circle');
+const player = document.getElementById('audio-player');
+
+let isDragging = false;
+
+progressCircle.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', onStopDrag);
+});
+
+progressTrackerHolder.addEventListener('click', (e) => {
+    const rect = progressTracker.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const width = rect.width;
+    const percentage = offsetX / width;
+    player.currentTime = percentage * player.duration;
+});
+
+function onDrag(e) {
+    if (!isDragging) return;
+    const rect = progressTracker.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const width = rect.width;
+    const percentage = Math.min(Math.max(offsetX / width, 0), 1);
+    player.currentTime = percentage * player.duration;
+    updateProgress();
+}
+
+function onStopDrag() {
+    isDragging = false;
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', onStopDrag);
+}
+
 function updateProgress() {
-    const player = document.getElementById("audio-player");
-    const progress = document.getElementById("progress");
-    const progressBar = document.querySelector(".progress-tracker");
-    const progressCircle = document.getElementById("progress-circle");
-    const currentTime = document.getElementById("current-time");
-
-    if (player.duration) {
-        const progressPercent = (player.currentTime / player.duration) * 100;
-        progress.style.width = `${progressPercent}%`;
-        progressCircle.style.left = `${progressPercent}%`;
-        currentTime.textContent = formatTime(player.currentTime);
-    }
-}*/
-/*
-function downloadSong(song) {
-    const downloadUrl = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
-    const filename = `${song.name || "Unknown_Song"}`;
-    console.log(downloadUrl);
-    console.log(filename);
-    const link = document.createElement('a');
-    link.href = `/download/?url=${downloadUrl}&filename=${filename}`;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    // name slicing
-    let new_name = song.name;
-    if (new_name.length > 16) {
-        new_name = new_name.slice(0,16);
-    }
-    //slicing end
-    showNotif(song.image[1].link, new_name);
-}*/
-
-import { convertMp4ToMp3 } from './convertor.js';
-
-async function downloadSong(song) {
-        // name slicing
-    let new_name = song.name;
-    if (new_name.length > 16) {
-        new_name = new_name.slice(0, 16);
-    }
-    // slicing end
-    showNotif(song.image[1].link, new_name);
-    const downloadUrl = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
-    const filename = `${song.name || "Unknown_Song"}`;
-    const imageUrl = song.image[1].link;
-    const artist = Array.isArray(song.primaryArtists) ? song.primaryArtists : [song.primaryArtists];
-    const title = song.name;
-    const album = song.album.name;
-    const year = song.year;
-    const genre = Array.isArray(song.genre) ? song.genre : [song.genre];
-
-    console.log(downloadUrl);
-    console.log(filename);
-
-    await convertMp4ToMp3(downloadUrl, imageUrl, artist, title, album, year, genre);
+    const progressPercent = (player.currentTime / player.duration) * 100;
+    progress.style.width = `${progressPercent}%`;
+    progressCircle.style.left = `${progressPercent}%`;
+    document.getElementById('current-time').textContent = formatTime(player.currentTime);
 }
 
 let songQueue = [];
@@ -199,7 +276,7 @@ function addToQueue(song) {
 function removeFromQueue(index) {
     songQueue.splice(index, 1);
     updateQueueDisplay();
-    if (index === 0) {
+    if (songQueue.length === 0) {
         let bla= document.getElementById("queue-list");
         bla.innerHTML = `<span>No songs in queue</span>`;
 
@@ -211,6 +288,11 @@ function playNextInQueue() {
         const nextSong = songQueue.shift();
         playmySong(nextSong);
         updateQueueDisplay();
+        if (songQueue.length === 0) {
+            let bla= document.getElementById("queue-list");
+            bla.innerHTML = `<span>No songs in queue</span>`;
+    
+        }
     }
 }
 
@@ -362,52 +444,6 @@ function moveQueueItem(oldIndex, newIndex) {
     }
     songQueue.splice(newIndex, 0, songQueue.splice(oldIndex, 1)[0]);
     updateQueueDisplay();
-}
-
-
-const progressTrackerHolder = document.querySelector('.progress-tracker-holder');
-const progressTracker = document.querySelector('.progress-tracker');
-const progress = document.getElementById('progress');
-const progressCircle = document.getElementById('progress-circle');
-const player = document.getElementById('audio-player');
-
-let isDragging = false;
-
-progressCircle.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    document.addEventListener('mousemove', onDrag);
-    document.addEventListener('mouseup', onStopDrag);
-});
-
-progressTrackerHolder.addEventListener('click', (e) => {
-    const rect = progressTracker.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const width = rect.width;
-    const percentage = offsetX / width;
-    player.currentTime = percentage * player.duration;
-});
-
-function onDrag(e) {
-    if (!isDragging) return;
-    const rect = progressTracker.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const width = rect.width;
-    const percentage = Math.min(Math.max(offsetX / width, 0), 1);
-    player.currentTime = percentage * player.duration;
-    updateProgress();
-}
-
-function onStopDrag() {
-    isDragging = false;
-    document.removeEventListener('mousemove', onDrag);
-    document.removeEventListener('mouseup', onStopDrag);
-}
-
-function updateProgress() {
-    const progressPercent = (player.currentTime / player.duration) * 100;
-    progress.style.width = `${progressPercent}%`;
-    progressCircle.style.left = `${progressPercent}%`;
-    document.getElementById('current-time').textContent = formatTime(player.currentTime);
 }
 
 
