@@ -3,6 +3,12 @@ import ID3Writer from "https://cdn.jsdelivr.net/npm/browser-id3-writer@4.0.0/+es
 
 const ffmpeg = createFFmpeg({ log: true });
 
+async function loadFFmpeg() {
+    if (!ffmpeg.isLoaded()) {
+        await ffmpeg.load();
+    }
+}
+
 async function fetchAsArrayBuffer(url) {
     const response = await fetch(url);
     return response.arrayBuffer();
@@ -13,10 +19,6 @@ export async function convertMp4ToMp3(mp4Url, imageUrl, artist, title, album, ye
         if (!mp4Url || !imageUrl) {
             alert("Metadata is missing MP4 or Image URLs!");
             return;
-        }
-
-        if (!ffmpeg.isLoaded()) {
-            await ffmpeg.load();
         }
 
         const mp4Buffer = await fetchAsArrayBuffer(mp4Url);
@@ -49,3 +51,6 @@ export async function convertMp4ToMp3(mp4Url, imageUrl, artist, title, album, ye
         alert("Conversion failed! Check the URLs.");
     }
 }
+
+// Load FFmpeg when the page loads
+document.addEventListener('DOMContentLoaded', loadFFmpeg);
