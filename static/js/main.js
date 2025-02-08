@@ -1,9 +1,32 @@
-async function searchSongs() {
+function retrieve() {
+    let currentTheme = localStorage.getItem("class-name");
+    console.log(currentTheme);
+    fetch(`/static/json/themes.json`)
+    .then(response => response.json())
+    .then(themes => {
+        let nameee = themes.find(temp => temp.className === currentTheme);
+        console.log(nameee);
+        changeTheme(nameee.className, nameee.colors[0],  nameee.colors[1],  nameee.colors[2],  nameee.colors[3]);
+        });
+}
+document.onload = retrieve();
+
+let pageNo = 1;
+
+async function searchSongs(isNew) {
+
     const query = document.getElementById("search-query").value;
     const songList = document.getElementById("song-list");
     songList.innerHTML = "";
+    console.log(isNew);
     try {
-        const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}&limit=25&page=1`);
+        if (!isNew) {
+            pageNo= pageNo + 1;
+        }
+        else {
+            pageNo = 1;
+        }
+        const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}&limit=25&page=${pageNo}`);
         const data = await response.json();
         const songs = data.data.results || [];
         console.log(songs);
@@ -109,11 +132,13 @@ function updateProgress() {
     const player = document.getElementById("audio-player");
     const progress = document.getElementById("progress");
     const progressBar = document.querySelector(".progress-tracker");
+    const progressCircle = document.getElementById("progress-circle");
     const currentTime = document.getElementById("current-time");
 
     if (player.duration) {
         const progressPercent = (player.currentTime / player.duration) * 100;
         progress.style.width = `${progressPercent}%`;
+        progressCircle.style.left = `${progressPercent}%`;
         currentTime.textContent = formatTime(player.currentTime);
     }
 }
@@ -195,7 +220,7 @@ input.addEventListener("keypress", function(event) {
     // Cancel the default action, if needed
     event.preventDefault();
     // Trigger the button element with a click
-    searchSongs();
+    searchSongs(true);
     input.blur();
   }
 });
@@ -275,3 +300,49 @@ function moveQueueItem(oldIndex, newIndex) {
     songQueue.splice(newIndex, 0, songQueue.splice(oldIndex, 1)[0]);
     updateQueueDisplay();
 }
+
+const progressTrackerHolder = document.querySelector('.progress-tracker-holder');
+const progressTracker = document.querySelector('.progress-tracker');
+const progress = document.getElementById('progress');
+const progressCircle = document.getElementById('progress-circle');
+const player = document.getElementById('audio-player');
+
+let isDragging = false;
+
+progressCircle.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', onStopDrag);
+});
+
+progressTrackerHolder.addEventListener('click', (e) => {
+    const rect = progressTracker.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const width = rect.width;
+    const percentage = offsetX / width;
+    player.currentTime = percentage * player.duration;
+});
+
+function onDrag(e) {
+    if (!isDragging) return;
+    const rect = progressTracker.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const width = rect.width;
+    const percentage = Math.min(Math.max(offsetX / width, 0), 1);
+    player.currentTime = percentage * player.duration;
+    updateProgress();
+}
+
+function onStopDrag() {
+    isDragging = false;
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', onStopDrag);
+}
+
+function updateProgress() {
+    const progressPercent = (player.currentTime / player.duration) * 100;
+    progress.style.width = `${progressPercent}%`;
+    progressCircle.style.left = `${progressPercent}%`;
+    document.getElementById('current-time').textContent = formatTime(player.currentTime);
+}
+
