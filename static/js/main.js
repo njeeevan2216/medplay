@@ -196,6 +196,16 @@ function addToQueue(song) {
     updateQueueDisplay();
 }
 
+function removeFromQueue(index) {
+    songQueue.splice(index, 1);
+    updateQueueDisplay();
+    if (index === 0) {
+        let bla= document.getElementById("queue-list");
+        bla.innerHTML = `<span>No songs in queue</span>`;
+
+    }
+}
+
 function playNextInQueue() {
     if (songQueue.length > 0) {
         const nextSong = songQueue.shift();
@@ -219,6 +229,7 @@ function updateQueueDisplay() {
 
         const qArt = document.createElement('img');
         qArt.classList.add("q-art");
+        qArt.crossOrigin = "anonymous";
         qArt.src = `${song.image[0].link}`;
         queueItem.appendChild(qArt);
 
@@ -229,6 +240,7 @@ function updateQueueDisplay() {
 
         const qDelBtn = document.createElement('div');
         qDelBtn.classList.add("q-del-btn");
+        qDelBtn.onclick = () => removeFromQueue(index);
 
         const qIco = document.createElement('i');
         qIco.classList.add("fa");
@@ -242,27 +254,6 @@ function updateQueueDisplay() {
         queueContainer.appendChild(queueItem);
     });
 }
-
-let isVis = false;
-
-function dropQueue() {
-    console.log("q");   
-
-    let queueCunt = document.querySelector(".queue-holder");
-    
-    if (isVis) {
-        queueCunt.style.transform = "translateX(358px)";   
-        isVis = false;
-    }
-    else {
-        queueCunt.style.transform = "translateX(30px)";
-        isVis = true;
-    }
-        
-
-
-}
-
 function updateDuration() {
     const player = document.getElementById("audio-player");
     const duration = document.getElementById("duration");
