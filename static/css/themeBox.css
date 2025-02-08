@@ -94,30 +94,3 @@
 .theme-name {
     color: black;
 }
-
-
-
-
-
-
-
-
-
-
-@media only screen and (max-width: 1750px) {
-    .theme-box {
-        grid-template-columns: repeat(5, 1fr);
-    }
-}
-
-@media only screen and (max-width: 1500px) {
-    .theme-box {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media only screen and (max-width: 1200px) {
-    .theme-box {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}

@@ -1,6 +1,20 @@
+function retrieve() {
+    let currentTheme = localStorage.getItem("class-name");
+    console.log(currentTheme);
+    fetch(`/static/json/themes.json`)
+    .then(response => response.json())
+    .then(themes => {
+        let nameee = themes.find(temp => temp.className === currentTheme);
+        console.log(nameee);
+        changeTheme(nameee.className, nameee.colors[0],  nameee.colors[1],  nameee.colors[2],  nameee.colors[3]);
+        });
+}
+document.onload = retrieve();
+
 let pageNo = 1;
 
 async function searchSongs(isNew) {
+
     const query = document.getElementById("search-query").value;
     const songList = document.getElementById("song-list");
     songList.innerHTML = "";
