@@ -86,7 +86,7 @@
     border-radius: 6px;
     width: 20px;
     height: 20px;
-    background: #ffd52d;
+    background: var(--out-accent);
     padding: 10px;
     margin-left: 20px;
     display: flex;
