@@ -113,6 +113,10 @@ img {
     cursor: pointer;
 }
 
+#song-list p {
+    color: var(--text-notif);
+}
+
 
 @media only screen and (max-width: 1350px) { 
     .cards {

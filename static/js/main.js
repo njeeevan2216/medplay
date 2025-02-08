@@ -246,7 +246,7 @@ function showNotif(url, name) {
         <img id="d-art" src="" crossorigin="anonymous"></img>
         <div class="notif-desc">
             <div class="download-desc">
-                <span id ="d-name" style = "color: #ffd52d;">${name}</span>
+                <span id ="d-name">${name}</span>
                 <span >will be downloaded</span>
             </div>
             <span class="please-wait">please wait for a while</span>
