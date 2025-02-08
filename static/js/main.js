@@ -26,7 +26,7 @@ async function searchSongs(isNew) {
         else {
             pageNo = 1;
         }
-        const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}&limit=25&page=${pageNo}`);
+        const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}&limit=24&page=${pageNo}`);
         const data = await response.json();
         const songs = data.data.results || [];
         console.log(songs);
@@ -128,6 +128,7 @@ function playmySong(song) {
     nowArtist.textContent = `${new_art_name || "Unknown Artist"}`;
     player.onended = playNextInQueue;
 }
+/*
 function updateProgress() {
     const player = document.getElementById("audio-player");
     const progress = document.getElementById("progress");
@@ -141,7 +142,8 @@ function updateProgress() {
         progressCircle.style.left = `${progressPercent}%`;
         currentTime.textContent = formatTime(player.currentTime);
     }
-}
+}*/
+/*
 function downloadSong(song) {
     const downloadUrl = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
     const filename = `${song.name || "Unknown_Song"}`;
@@ -160,6 +162,31 @@ function downloadSong(song) {
     }
     //slicing end
     showNotif(song.image[1].link, new_name);
+}*/
+
+import { convertMp4ToMp3 } from './convertor.js';
+
+async function downloadSong(song) {
+        // name slicing
+    let new_name = song.name;
+    if (new_name.length > 16) {
+        new_name = new_name.slice(0, 16);
+    }
+    // slicing end
+    showNotif(song.image[1].link, new_name);
+    const downloadUrl = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
+    const filename = `${song.name || "Unknown_Song"}`;
+    const imageUrl = song.image[1].link;
+    const artist = Array.isArray(song.primaryArtists) ? song.primaryArtists : [song.primaryArtists];
+    const title = song.name;
+    const album = song.album.name;
+    const year = song.year;
+    const genre = Array.isArray(song.genre) ? song.genre : [song.genre];
+
+    console.log(downloadUrl);
+    console.log(filename);
+
+    await convertMp4ToMp3(downloadUrl, imageUrl, artist, title, album, year, genre);
 }
 
 let songQueue = [];
@@ -292,13 +319,13 @@ document.addEventListener('keydown', function(event) {
 });
 
 function showNotif(url, name) {
-    let div = document.getElementById("notification-holder")
+    let div = document.getElementById("notification-holder");
     div.innerHTML = `
     <div class="notification-box">
-        <img id="d-art" src=""></img>
+        <img id="d-art" src="" crossorigin="anonymous"></img>
         <div class="notif-desc">
             <div class="download-desc">
-                <span id ="d-name" style = "color: #ffd52d;">${name}</span>
+                <span id ="d-name">${name}</span>
                 <span >will be downloaded</span>
             </div>
             <span class="please-wait">please wait for a while</span>
@@ -311,18 +338,16 @@ function showNotif(url, name) {
     div.style.display = "block";
 
     setTimeout(() => {
-        
         div.style.opacity = "1";
     }, 10);
     
     setTimeout(() => {
         div.style.opacity = "0"; 
         setTimeout(() => {
-            div.style.display = "none"
-            div.innerHTML=``;
+            div.style.display = "none";
+            div.innerHTML = ``;
         }, 1000);
-    }, 5000);   
-
+    }, 5000);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -347,6 +372,7 @@ function moveQueueItem(oldIndex, newIndex) {
     songQueue.splice(newIndex, 0, songQueue.splice(oldIndex, 1)[0]);
     updateQueueDisplay();
 }
+
 
 const progressTrackerHolder = document.querySelector('.progress-tracker-holder');
 const progressTracker = document.querySelector('.progress-tracker');
@@ -392,4 +418,5 @@ function updateProgress() {
     progressCircle.style.left = `${progressPercent}%`;
     document.getElementById('current-time').textContent = formatTime(player.currentTime);
 }
+
 

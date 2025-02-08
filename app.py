@@ -4,6 +4,12 @@ from io import BytesIO
 
 app = Flask(__name__)
 
+@app.after_request
+def add_security_headers(response):
+    response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
+    response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
+    return response
+
 API_URL = "https://jiosaavn-api-privatecvc2.vercel.app/"
 
 @app.route('/')
