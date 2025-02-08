@@ -82,6 +82,7 @@ function createSongCard(song, songList) {
                     <div class="play-down">
                         <div class = "play-btn")><i class="fa-solid fa-play"></i></div>
                         <div class = "download-btn"><i class="fas fa-download"></i></div>
+                        <div class = "queue-btn"><i class="fas fa-plus"></i></div>
                     </div>
                 </div>
     `;
@@ -93,6 +94,9 @@ function createSongCard(song, songList) {
         downloadSong(song);
         
     }
+    const queueButton = card.querySelector(".queue-btn")
+    queueButton.onclick = () => addToQueue(song);
+
     songList.appendChild(card);
 }
 function playmySong(song) {
@@ -122,6 +126,7 @@ function playmySong(song) {
     //slicing end
     nowPlaying.textContent = `${new_name || "Unknown Song"}`;
     nowArtist.textContent = `${new_art_name || "Unknown Artist"}`;
+    player.onended = playNextInQueue;
 }
 /*
 function updateProgress() {
@@ -182,6 +187,80 @@ async function downloadSong(song) {
     console.log(filename);
 
     await convertMp4ToMp3(downloadUrl, imageUrl, artist, title, album, year, genre);
+}
+
+let songQueue = [];
+
+function addToQueue(song) {
+    songQueue.push(song);
+    updateQueueDisplay();
+}
+
+function playNextInQueue() {
+    if (songQueue.length > 0) {
+        const nextSong = songQueue.shift();
+        playmySong(nextSong);
+        updateQueueDisplay();
+    }
+}
+
+function updateQueueDisplay() {
+    const queueContainer = document.getElementById("queue-list");
+    queueContainer.innerHTML = "";
+    songQueue.forEach((song, index) => {
+
+        let qDisName = song.name;
+        if (qDisName.length > 20) {
+            qDisName = qDisName.slice(0,17)+"...";
+        }
+
+        const queueItem = document.createElement("div");
+        queueItem.classList.add("queue-item");
+
+        const qArt = document.createElement('img');
+        qArt.classList.add("q-art");
+        qArt.src = `${song.image[0].link}`;
+        queueItem.appendChild(qArt);
+
+        const qSongName = document.createElement('span');
+        qSongName.classList.add("q-song-name");
+        qSongName.textContent = `${qDisName}`;
+        queueItem.appendChild(qSongName);
+
+        const qDelBtn = document.createElement('div');
+        qDelBtn.classList.add("q-del-btn");
+
+        const qIco = document.createElement('i');
+        qIco.classList.add("fa");
+        qIco.classList.add("fa-trash");
+        qIco.classList.add("q-ico");
+
+        qDelBtn.appendChild(qIco);
+        queueItem.appendChild(qDelBtn);
+
+        queueItem.setAttribute("draggable", true);
+        queueContainer.appendChild(queueItem);
+    });
+}
+
+let isVis = false;
+
+function dropQueue() {
+    console.log("q");   
+
+    let queueCunt = document.querySelector(".queue-holder");
+    
+    if (isVis) {
+        queueCunt.style.transform = "translateX(358px)";   
+        isVis = false;
+    }
+    else {
+        queueCunt.style.transform = "translateX(30px)";
+        isVis = true;
+    }
+        
+
+
 }
 
 function updateDuration() {
@@ -271,6 +350,30 @@ function showNotif(url, name) {
     }, 5000);
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    const queueList = document.getElementById("queue-list");
+    new Sortable(queueList, {
+        animation: 150,
+        onEnd: function(evt) {
+            const oldIndex = evt.oldIndex;
+            const newIndex = evt.newIndex;
+            moveQueueItem(oldIndex, newIndex);
+        }
+    });
+});
+
+function moveQueueItem(oldIndex, newIndex) {
+    if (newIndex >= songQueue.length) {
+        let k = newIndex - songQueue.length + 1;
+        while (k--) {
+            songQueue.push(undefined);
+        }
+    }
+    songQueue.splice(newIndex, 0, songQueue.splice(oldIndex, 1)[0]);
+    updateQueueDisplay();
+}
+
+
 const progressTrackerHolder = document.querySelector('.progress-tracker-holder');
 const progressTracker = document.querySelector('.progress-tracker');
 const progress = document.getElementById('progress');
@@ -315,3 +418,5 @@ function updateProgress() {
     progressCircle.style.left = `${progressPercent}%`;
     document.getElementById('current-time').textContent = formatTime(player.currentTime);
 }
+
+
