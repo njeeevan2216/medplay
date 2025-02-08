@@ -12,4 +12,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+let isVis = false;
 
+function dropQueue() {
+    console.log("q");   
+
+    let queueCunt = document.querySelector(".queue-holder");
+    
+    if (isVis) {
+        queueCunt.style.transform = "translateX(358px)";   
+        isVis = false;
+    }
+    else {
+        queueCunt.style.transform = "translateX(30px)";
+        isVis = true;
+    }
+}
