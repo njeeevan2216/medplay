@@ -86,7 +86,7 @@
     border-radius: 6px;
     width: 20px;
     height: 20px;
-    background: #ffd52d;
+    background: var(--out-accent);
     padding: 10px;
     margin-left: 20px;
     display: flex;
@@ -127,33 +127,6 @@ img {
 
 .more:hover {
     cursor: pointer;
-}
-
-.queue-container {
-    margin-top: 20px;
-    position: absolute;
-    top: 0;
-}
-
-.queue-list {
-    border: 1px solid #ccc;
-    padding: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.queue-item {
-    padding: 5px;
-    border-bottom: 1px solid #eee;
-    cursor: move;
-}
-
-.queue-item:last-child {
-    border-bottom: none;
-}
-
-.queue-item.dragging {
-    background-color: #f0f0f0;
 }
 
 

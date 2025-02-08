@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename="css/playerContainer.css")}}">
   <link rel="stylesheet" href="{{ url_for('static', filename="css/notification.css")}}">
   <link rel="stylesheet" href="{{ url_for('static', filename="css/themeBox.css")}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename="css/queue.css")}}">
 
 
 
@@ -70,12 +71,17 @@
         </div>
     </div>
 <audio id = "audio-player" ontimeupdate="updateProgress()" onloadedmetadata="updateDuration()"></audio>
-<div class="queue-container">
-    <h3>Queue</h3>
-    <div id="queue-list" class="queue-list">
-        <!-- Queue items will be appended here -->
+<div class="queue-holder" >
+    <div class="q-open-btn" onclick="dropQueue()">Q</div>
+    <div class="queue-container">
+        <h3 class="queue-title">Queue</h3>
+        <div id="queue-list" class="queue-list">
+            <span>No songs in queue</span>
+            <!-- Queue items will be appended here -->
+        </div>
     </div>
 </div>
+
 
 <!--notification-->
 <div id="notification-holder" class = "notification-holder">

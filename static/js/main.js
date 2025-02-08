@@ -181,12 +181,59 @@ function updateQueueDisplay() {
     const queueContainer = document.getElementById("queue-list");
     queueContainer.innerHTML = "";
     songQueue.forEach((song, index) => {
+
+        let qDisName = song.name;
+        if (qDisName.length > 20) {
+            qDisName = qDisName.slice(0,17)+"...";
+        }
+
         const queueItem = document.createElement("div");
         queueItem.classList.add("queue-item");
-        queueItem.textContent = `${index + 1}. ${song.name} - ${song.primaryArtists}`;
+
+        const qArt = document.createElement('img');
+        qArt.classList.add("q-art");
+        qArt.src = `${song.image[0].link}`;
+        queueItem.appendChild(qArt);
+
+        const qSongName = document.createElement('span');
+        qSongName.classList.add("q-song-name");
+        qSongName.textContent = `${qDisName}`;
+        queueItem.appendChild(qSongName);
+
+        const qDelBtn = document.createElement('div');
+        qDelBtn.classList.add("q-del-btn");
+
+        const qIco = document.createElement('i');
+        qIco.classList.add("fa");
+        qIco.classList.add("fa-trash");
+        qIco.classList.add("q-ico");
+
+        qDelBtn.appendChild(qIco);
+        queueItem.appendChild(qDelBtn);
+
         queueItem.setAttribute("draggable", true);
         queueContainer.appendChild(queueItem);
     });
+}
+
+let isVis = false;
+
+function dropQueue() {
+    console.log("q");   
+
+    let queueCunt = document.querySelector(".queue-holder");
+    
+    if (isVis) {
+        queueCunt.style.transform = "translateX(358px)";   
+        isVis = false;
+    }
+    else {
+        queueCunt.style.transform = "translateX(30px)";
+        isVis = true;
+    }
+        
+
+
 }
 
 function updateDuration() {
