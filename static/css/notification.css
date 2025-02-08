@@ -30,3 +30,6 @@
     font-size: 12px;
 }
 
+#d-name {
+    color: var(--out-accent);
+}

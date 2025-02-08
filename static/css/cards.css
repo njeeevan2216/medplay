@@ -129,31 +129,8 @@ img {
     cursor: pointer;
 }
 
-.queue-container {
-    margin-top: 20px;
-    position: absolute;
-    top: 0;
-}
-
-.queue-list {
-    border: 1px solid #ccc;
-    padding: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-.queue-item {
-    padding: 5px;
-    border-bottom: 1px solid #eee;
-    cursor: move;
-}
-
-.queue-item:last-child {
-    border-bottom: none;
-}
-
-.queue-item.dragging {
-    background-color: #f0f0f0;
+#song-list p {
+    color: var(--text-notif);
 }
 
 

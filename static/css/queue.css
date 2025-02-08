@@ -1,0 +1,89 @@
+.queue-holder {
+    display: flex;
+    position: fixed;
+    bottom: 190px;
+    right: 0;
+    transform: translateX(358px);   
+    justify-content: center;
+    align-items: center;
+
+}
+.q-open-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 80px;
+    background: var(--out-accent);
+    border-radius: 8px 0 0 8px;
+    color: var(--back-dark);
+}
+.queue-container {
+    border: 4px solid var(--out-accent);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--back-dark);
+    opacity: 90%;
+    border-radius: 17px;
+    padding-right: 20px;
+    width: 330px;
+    color: var(--text-notif);
+}
+
+.queue-title {
+    align-self: center;
+    
+}
+.queue-list {
+    padding: 20px;
+    padding-top: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+}
+
+.queue-list::-webkit-scrollbar {
+    display: none;
+}
+
+.queue-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: move;
+    background: var(--card-back);
+    border-radius: 17px;
+    height: fit-content;
+    border: 3px solid var(--out-accent);
+    width: fit-content;
+    margin-top: 10px;
+}
+
+.q-art {
+    width: 40px;
+    height: 40px;
+}
+
+.q-song-name {
+    width: 180px;
+    padding-left: 20px;
+}
+
+.q-del-btn {
+    border-radius: 8px;
+    width: 20px;
+    height: 20px;
+    background: var(--out-accent);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.queue-item.dragging {
+    background-color: #f0f0f0;
+}
