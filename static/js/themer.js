@@ -1,3 +1,4 @@
+
 let isUp = true;
 fetch(`/static/json/themes.json`)
             .then(response => response.json())
@@ -7,7 +8,7 @@ fetch(`/static/json/themes.json`)
                     const themeDiv = document.createElement('div');
                     themeDiv.classList.add('theme', theme.className);
                     themeDiv.style.background = `${theme.colors[2]}`;
-                    themeDiv.onclick = () => changeTheme(theme.colors[0], theme.colors[1], theme.colors[2], theme.colors[3]);
+                    themeDiv.onclick = () => changeTheme(theme.className, theme.colors[0], theme.colors[1], theme.colors[2], theme.colors[3]);
                     
                     const themeName = document.createElement('span');
                     themeName.classList.add('theme-name');
@@ -27,15 +28,21 @@ fetch(`/static/json/themes.json`)
                     themeDiv.appendChild(colorBox);
                     
                     themeContainer.appendChild(themeDiv);
+                    
+
                 });
+
             });
 
-function changeTheme(c1, c2, c3, c4) {
+function changeTheme(name, c1, c2, c3, c4) {
+    localStorage.setItem("class-name",`${name}`);
     document.documentElement.style.setProperty('--text-notif', c1);
     document.documentElement.style.setProperty('--back-dark', c2);
     document.documentElement.style.setProperty('--card-back', c3);
     document.documentElement.style.setProperty('--out-accent', c4);
+
 }
+
 
 function dropTheme() {
 
