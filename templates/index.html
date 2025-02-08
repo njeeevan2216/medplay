@@ -70,6 +70,12 @@
         </div>
     </div>
 <audio id = "audio-player" ontimeupdate="updateProgress()" onloadedmetadata="updateDuration()"></audio>
+<div class="queue-container">
+    <h3>Queue</h3>
+    <div id="queue-list" class="queue-list">
+        <!-- Queue items will be appended here -->
+    </div>
+</div>
 
 <!--notification-->
 <div id="notification-holder" class = "notification-holder">
@@ -77,6 +83,7 @@
 </div>
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 <script src = "{{ url_for('static', filename="js/themer.js")}}"></script>
 <script src = "{{ url_for('static', filename="js/main.js")}}"></script>
 <script src = "{{ url_for('static', filename="js/searchBarAnimation.js")}}"></script>

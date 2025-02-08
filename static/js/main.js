@@ -82,6 +82,7 @@ function createSongCard(song, songList) {
                     <div class="play-down">
                         <div class = "play-btn")><i class="fa-solid fa-play"></i></div>
                         <div class = "download-btn"><i class="fas fa-download"></i></div>
+                        <div class = "queue-btn"><i class="fas fa-plus"></i></div>
                     </div>
                 </div>
     `;
@@ -93,6 +94,9 @@ function createSongCard(song, songList) {
         downloadSong(song);
         
     }
+    const queueButton = card.querySelector(".queue-btn")
+    queueButton.onclick = () => addToQueue(song);
+
     songList.appendChild(card);
 }
 function playmySong(song) {
@@ -122,6 +126,7 @@ function playmySong(song) {
     //slicing end
     nowPlaying.textContent = `${new_name || "Unknown Song"}`;
     nowArtist.textContent = `${new_art_name || "Unknown Artist"}`;
+    player.onended = playNextInQueue;
 }
 function updateProgress() {
     const player = document.getElementById("audio-player");
@@ -155,6 +160,33 @@ function downloadSong(song) {
     }
     //slicing end
     showNotif(song.image[1].link, new_name);
+}
+
+let songQueue = [];
+
+function addToQueue(song) {
+    songQueue.push(song);
+    updateQueueDisplay();
+}
+
+function playNextInQueue() {
+    if (songQueue.length > 0) {
+        const nextSong = songQueue.shift();
+        playmySong(nextSong);
+        updateQueueDisplay();
+    }
+}
+
+function updateQueueDisplay() {
+    const queueContainer = document.getElementById("queue-list");
+    queueContainer.innerHTML = "";
+    songQueue.forEach((song, index) => {
+        const queueItem = document.createElement("div");
+        queueItem.classList.add("queue-item");
+        queueItem.textContent = `${index + 1}. ${song.name} - ${song.primaryArtists}`;
+        queueItem.setAttribute("draggable", true);
+        queueContainer.appendChild(queueItem);
+    });
 }
 
 function updateDuration() {
@@ -245,7 +277,29 @@ function showNotif(url, name) {
     }, 5000);   
 
 }
-// ...existing code...
+
+document.addEventListener("DOMContentLoaded", function() {
+    const queueList = document.getElementById("queue-list");
+    new Sortable(queueList, {
+        animation: 150,
+        onEnd: function(evt) {
+            const oldIndex = evt.oldIndex;
+            const newIndex = evt.newIndex;
+            moveQueueItem(oldIndex, newIndex);
+        }
+    });
+});
+
+function moveQueueItem(oldIndex, newIndex) {
+    if (newIndex >= songQueue.length) {
+        let k = newIndex - songQueue.length + 1;
+        while (k--) {
+            songQueue.push(undefined);
+        }
+    }
+    songQueue.splice(newIndex, 0, songQueue.splice(oldIndex, 1)[0]);
+    updateQueueDisplay();
+}
 
 const progressTrackerHolder = document.querySelector('.progress-tracker-holder');
 const progressTracker = document.querySelector('.progress-tracker');
@@ -292,4 +346,3 @@ function updateProgress() {
     document.getElementById('current-time').textContent = formatTime(player.currentTime);
 }
 
-// ...existing code...
