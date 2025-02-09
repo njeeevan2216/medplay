@@ -73,6 +73,10 @@
     justify-content: center;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    gap: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: var(--card-back);
 }
 
 /*scroll to top */
