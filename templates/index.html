@@ -47,7 +47,7 @@
 
     <!--player-container starts here-->
     <div class = "player-container">
-        <div class = "player-box">
+        <div id="player-box" class = "player-box">
             <img id = "album-art" src ="{{ url_for('static', filename="img/plc.png")}}" class = "album-image-player"></img>
             <div class = "song-details">
                 <span id = "now-playing" class="song-name">Song Name</span>
@@ -87,6 +87,8 @@
 <div id="notification-holder" class = "notification-holder">
     
 </div>
+
+<div></div>
 
 </body>
 

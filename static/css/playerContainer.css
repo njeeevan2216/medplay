@@ -14,7 +14,7 @@
     border: 4px solid var(--out-accent);
     padding: 20px;
     padding-bottom: 40px;
-    background: var(--card-back);
+    background-color: var(--card-back);
     transform: translateY(30px);
     opacity: 90%;
 }
