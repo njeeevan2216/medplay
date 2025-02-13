@@ -67,20 +67,20 @@ async function downloadSong(song) {
     const year = song.year;
     const genre = Array.isArray(song.genre) ? song.genre : [song.genre];
 
-    console.log(downloadUrl);
-    console.log(filename);
+    //console.log(downloadUrl);
+    //console.log(filename);
 
     await convertMp4ToMp3(downloadUrl, imageUrl, artist, title, album, year, genre);
 }
 
 function retrieve() {
     let currentTheme = localStorage.getItem("class-name");
-    console.log(currentTheme);
+    //console.log(currentTheme);
     fetch(`/static/json/themes.json`)
     .then(response => response.json())
     .then(themes => {
         let nameee = themes.find(temp => temp.className === currentTheme);
-        console.log(nameee);
+        //console.log(nameee);
         changeTheme(nameee.className, nameee.colors[0],  nameee.colors[1],  nameee.colors[2],  nameee.colors[3]);
         });
 }
@@ -93,7 +93,7 @@ async function searchSongs(isNew) {
     const query = document.getElementById("search-query").value;
     const songList = document.getElementById("song-list");
     songList.innerHTML = "";
-    console.log(isNew);
+    //console.log(isNew);
     try {
         if (!isNew) {
             pageNo= pageNo + 1;
@@ -104,7 +104,7 @@ async function searchSongs(isNew) {
         const response = await fetch(`https://jiosaavn-api-privatecvc2.vercel.app/search/songs?query=${query}&limit=24&page=${pageNo}`);
         const data = await response.json();
         const songs = data.data.results || [];
-        console.log(songs);
+        //console.log(songs);
         
         if (songs.length === 0) {
             throw new Error("No songs found");
@@ -207,7 +207,7 @@ function playmySong(song) {
 let isVis = false;
 
 function dropQueue() {
-    console.log("q");   
+    //console.log("q");   
 
     let queueCunt = document.querySelector(".queue-holder");
     
