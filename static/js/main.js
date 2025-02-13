@@ -184,9 +184,9 @@ function playmySong(song) {
     const artLink = `/image/?url=${encodeURIComponent(song.image[1].link || `{{ url_for('static', filename="img/plc.png")}}`)}`;
     let URL = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
     albumArt.src = artLink;
-    console.log(URL);
+    //console.log(URL);
     const downloadUrl = `/stream/?url=${encodeURIComponent(URL)}`;
-    console.log(downloadUrl);
+    //console.log(downloadUrl);
     player.src = downloadUrl || "";
     player.play();
     // name slicing
