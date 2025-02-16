@@ -54,6 +54,9 @@
                 <span class="artist-name artist-name-vanish" id="artist-name">Artist Name</span>
             </div>
             <div class="player-btn-holder">
+                <div class = "player-play-next-btn" onclick="playNextInQueue()">
+                    <i class="fas fa-fast-forward"></i>
+                </div>
                 <div class = "player-play-btn" onclick="playPause()">
                     <i id = "play-icon" class="fa-solid fa-play"></i>
                 </div>
@@ -74,7 +77,12 @@
 <div class="queue-holder" >
     <div class="q-open-btn" onclick="dropQueue()">Q</div>
     <div class="queue-container">
-        <h3 class="queue-title">Queue</h3>
+        <div class="queue-header-holder">
+            <h3 class="queue-title">Queue</h3>
+            <div class = "player-play-btn" onclick="playNextInQueue()">
+                <i class="fa-solid fa-play"></i>
+            </div>
+        </div>
         <div id="queue-list" class="queue-list">
             <span>No songs in queue</span>
             <!-- Queue items will be appended here -->

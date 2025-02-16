@@ -32,7 +32,12 @@
     width: 330px;
     color: var(--text-notif);
 }
-
+.queue-header-holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
 .queue-title {
     align-self: center;
     
