@@ -1,3 +1,4 @@
+let loop_selected = false;
 async function fetchAsArrayBuffer(url) {
     const response = await fetch(url);
     return response.arrayBuffer();
@@ -447,3 +448,19 @@ function moveQueueItem(oldIndex, newIndex) {
 }
 
 
+
+function loopSelection() {
+    let button = document.getElementById("loop-btn");
+    let button_icon = document.getElementById("loop-btn-icon");
+    if(loop_selected) {
+        button.classList.remove("active-link");
+        button_icon.classList.remove("active-link-i");
+        loop_selected = false;
+    }
+    else {
+        button.classList.add("active-link");
+        button_icon.classList.add("active-link-i");
+        loop_selected = true;
+    }
+    
+}
