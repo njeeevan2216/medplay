@@ -12,9 +12,6 @@
     margin-bottom: 0;
 }
 
-.theme-open-button {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
 .theme-holder {
     width: 99%;
     display: flex;
@@ -74,8 +71,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    gap: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: var(--card-back);
 }
 
+/*scroll to top */
+
+/*window.scrollTo({
+    top: 100,
+    left: 100,
+    behavior: 'smooth'
+});*/
 
 .theme-color-box {
     display: none;

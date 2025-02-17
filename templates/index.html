@@ -24,7 +24,7 @@
                 
             </div>
         </div>
-        <div class="theme-open-button" onclick="dropTheme()"><i id = "theme-icon" class="fa-solid fa-caret-down"></i></div>
+        <div class="theme-open-button" onclick="dropTheme()">Themes<i class="fas fa-paint-brush"></i></div>
     </div>
     
     <h1 class = "title">Medplay</h1>
@@ -47,15 +47,21 @@
 
     <!--player-container starts here-->
     <div class = "player-container">
-        <div class = "player-box">
+        <div id="player-box" class = "player-box">
             <img id = "album-art" src ="{{ url_for('static', filename="img/plc.png")}}" class = "album-image-player"></img>
             <div class = "song-details">
                 <span id = "now-playing" class="song-name">Song Name</span>
                 <span class="artist-name artist-name-vanish" id="artist-name">Artist Name</span>
             </div>
             <div class="player-btn-holder">
+                <div class = "player-play-next-btn" onclick="playNextInQueue()">
+                    <i class="fas fa-fast-forward"></i>
+                </div>
                 <div class = "player-play-btn" onclick="playPause()">
                     <i id = "play-icon" class="fa-solid fa-play"></i>
+                </div>
+                <div id="loop-btn" class = "player-loop-btn" onclick="loopSelection()">
+                    <i id="loop-btn-icon" class="fas fa-repeat"></i>
                 </div>
             </div> 
             <div class="progress-tracker-holder" onclick="seek(event)">
@@ -74,7 +80,12 @@
 <div class="queue-holder" >
     <div class="q-open-btn" onclick="dropQueue()">Q</div>
     <div class="queue-container">
-        <h3 class="queue-title">Queue</h3>
+        <div class="queue-header-holder">
+            <h3 class="queue-title">Queue</h3>
+            <div class = "player-play-btn" onclick="playNextInQueue()">
+                <i class="fa-solid fa-play"></i>
+            </div>
+        </div>
         <div id="queue-list" class="queue-list">
             <span>No songs in queue</span>
             <!-- Queue items will be appended here -->
@@ -88,6 +99,8 @@
     
 </div>
 
+<div></div>
+
 </body>
 
 
@@ -95,4 +108,8 @@
 <script src = "{{ url_for('static', filename="js/themer.js")}}"></script>
 <script src = "{{ url_for('static', filename="js/main.js")}}"></script>
 <script src = "{{ url_for('static', filename="js/searchBarAnimation.js")}}"></script>
+<script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </html>

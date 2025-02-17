@@ -47,17 +47,16 @@ function changeTheme(name, c1, c2, c3, c4) {
 function dropTheme() {
 
     let themeCunt = document.querySelector(".theme-container");
-    let themeIco = document.getElementById("theme-icon");
     
     if (isUp) {
         themeCunt.style.transform = "translateY(0px)";
         isUp = false;
-        themeIco.classList.replace('fa-caret-down','fa-caret-up');
+        
     }
     else {
         themeCunt.style.transform = "translateY(-130px)";
         isUp = true;
-        themeIco.classList.replace('fa-caret-up','fa-caret-down');
+        
     }
 
 }
