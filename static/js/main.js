@@ -1,4 +1,5 @@
 let loop_selected = false;
+let currentSong = null;
 async function fetchAsArrayBuffer(url) {
     const response = await fetch(url);
     return response.arrayBuffer();
@@ -176,6 +177,7 @@ function createSongCard(song, songList) {
     songList.appendChild(card);
 }
 function playmySong(song) {
+    currentSong = song;
     const player = document.getElementById("audio-player");
     const nowPlaying = document.getElementById("now-playing");
     const nowArtist = document.getElementById("artist-name");
@@ -387,7 +389,7 @@ audioPlayerEvent.onpause = () => {
 
 audioPlayerEvent.onended = () => {
     if(loop_selected){
-       playmySong(song);
+       playmySong(currentSong);
     }
     else 
     {
