@@ -58,7 +58,7 @@ async function downloadSong(song) {
         new_name = new_name.slice(0, 16);
     }
     // slicing end
-    showNotif(song.image[1].link, new_name);
+    showNotif(song.image[2].link, new_name);
     const downloadUrl = song.downloadUrl.find(link => link.quality === '320kbps').link || song.downloadUrl[0];
     const filename = `${song.name || "Unknown_Song"}`;
     const imageUrl = song.image[1].link;
@@ -202,7 +202,7 @@ function playmySong(song) {
     //slicing end
     nowPlaying.textContent = `${new_name || "Unknown Song"}`;
     nowArtist.textContent = `${new_art_name || "Unknown Artist"}`;
-    player.onended = playNextInQueue;
+
 }
 
 let isVis = false;
@@ -383,6 +383,16 @@ audioPlayerEvent.onplay = () => {
 audioPlayerEvent.onpause = () => {
     const playBtn = document.getElementById("play-icon");
     playBtn.classList.replace("fa-pause", "fa-play");
+};
+
+audioPlayerEvent.onended = () => {
+    if(loop_selected){
+       playmySong(song);
+    }
+    else 
+    {
+        playNextInQueue;
+    }
 };
 
 document.addEventListener('keydown', function(event) {
