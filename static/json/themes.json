@@ -55,7 +55,7 @@
         "colors": ["#e3d5ba", "#313131", "#282828", "#f06b0e"]
     },
     {
-        "className": "apt",
+        "className": "apt", 
         "name": "APT.",
         "colors": ["#ffffff", "#fca9ac", "#f37f83", "#e53c58"]
     }

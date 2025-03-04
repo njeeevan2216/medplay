@@ -5,6 +5,7 @@
     justify-content: center;
     transform: translateY(-130px); 
     transition: transform .3s; 
+    z-index: 2;
 }
 
 .theme-title {
@@ -23,6 +24,7 @@
     width: 100%;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     margin: 0;
+    background: var(--back-dark);
 }
 
 .theme-box {
