@@ -29,10 +29,13 @@
     box-sizing: border-box;
     z-index: 2;
 }
-
+label {
+    color: var(--text-notif);
+}
 .eq-title {
     font-size: 30px;
     font-weight: 800;
+    color: var(--text-notif);
 }
 .slider-holders{
     display: flex;
@@ -52,6 +55,7 @@
     gap: 8px;
     padding-top: 23px;
     box-sizing: border-box;
+    color: var(--text-notif);
 }
 
 .reset-btn-eq {
