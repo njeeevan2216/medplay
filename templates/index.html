@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename="css/notification.css")}}">
   <link rel="stylesheet" href="{{ url_for('static', filename="css/themeBox.css")}}">
   <link rel="stylesheet" href="{{ url_for('static', filename="css/queue.css")}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename="css/equalizer.css")}}">
 
 
 
@@ -54,6 +55,9 @@
                 <span class="artist-name artist-name-vanish" id="artist-name">Artist Name</span>
             </div>
             <div class="player-btn-holder">
+                <div class="player-eq-btn" onclick="eqbtn()">
+                    <span>eq</span>
+                </div>
                 <div class = "player-play-next-btn" onclick="playNextInQueue()">
                     <i class="fas fa-fast-forward"></i>
                 </div>
@@ -99,7 +103,55 @@
     
 </div>
 
-<div></div>
+<!--eq-->
+
+<div class="eq-holder" id="eq-holder">
+    <span class="eq-title">Equalizer</span>
+    <div class="slider-holders">
+        <div class="slider-container db">
+            <span>20 dB</span>
+            <span>10 dB</span>
+            <span>0 dB</span>
+            <span>-10 dB</span>
+            <span>-20 dB</span>
+        </div>
+        <div class="slider-container">
+            <label>62 Hz</label>
+            <input type="range" id="bass" class="slider" min="-20" max="20" value="0">
+        </div>
+        <div class="slider-container">
+            <label>250 Hz</label>
+            <input type="range" id="lowMid" class="slider" min="-20" max="20" value="0">
+        </div>
+        <div class="slider-container">
+            <label>500 Hz</label>
+            <input type="range" id="mid" class="slider" min="-20" max="20" value="0">
+        </div>
+        <div class="slider-container">
+            <label>1 kHz</label>
+            <input type="range" id="highMid" class="slider" min="-20" max="20" value="0">
+        </div>
+        <div class="slider-container">
+            <label>2 kHz</label>
+            <input type="range" id="treble" class="slider" min="-20" max="20" value="0">
+        </div>
+        <div class="slider-container">
+            <label>4 kHz</label>
+            <input type="range" id="presence" class="slider" min="-20" max="20" value="0">
+        </div>
+        <div class="slider-container">
+            <label>8 kHz</label>
+            <input type="range" id="brilliance" class="slider" min="-20" max="20" value="0">
+        </div>
+        <div class="slider-container">
+            <label>16 kHz</label>
+            <input type="range" id="air" class="slider" min="-20" max="20" value="0">
+        </div>
+    </div>
+    <div class="reset-btn-eq" onclick="reset()"><span>Reset</span></div>
+</div>
+
+<div class="blur" id="blur" onclick="eqbtn()"></div>
 
 </body>
 
@@ -108,6 +160,7 @@
 <script src = "{{ url_for('static', filename="js/themer.js")}}"></script>
 <script src = "{{ url_for('static', filename="js/main.js")}}"></script>
 <script src = "{{ url_for('static', filename="js/searchBarAnimation.js")}}"></script>
+<script src = "{{ url_for('static', filename="js/eq.js")}}"></script>
 <script>
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
