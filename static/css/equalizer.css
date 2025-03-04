@@ -1,0 +1,130 @@
+.player-eq-btn {
+    height: 20px;
+    width: 20px;
+    padding: 10px;
+    background: var(--out-accent);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.eq-holder {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    background: var(--card-back);
+    width: 650px;
+    height: 350px;
+    border-radius: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    color: white;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.eq-title {
+    font-size: 30px;
+    font-weight: 800;
+}
+.slider-holders{
+    display: flex;
+    gap: 10px;
+}
+
+
+.slider-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 55px;
+}
+
+.db {
+    gap: 8px;
+    padding-top: 23px;
+    box-sizing: border-box;
+}
+
+.reset-btn-eq {
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    background: var(--out-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+}
+
+.reset-btn-eq:hover {
+    transform: scale(1.05);
+}
+
+.reset-btn-eq > span{
+    color: var(--card-back);
+    font-style: bold;
+    font-weight: 700;
+
+}
+
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 8px; 
+    height: 125px;
+    background: var(--text-notif); 
+    outline: none;
+    opacity: 1;
+    transition: opacity .2s;
+    cursor: pointer;
+    border-radius: 10px;
+
+    
+    writing-mode: vertical-lr; 
+    -webkit-writing-mode: vertical-lr; /* Safari & Chrome */
+    -moz-writing-mode: vertical-lr; /* Firefox */
+    direction: rtl; 
+}
+
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px; 
+    height: 16px;
+    background: var(--out-accent); 
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* The thumb (slider circle) for Firefox */
+input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--out-accent);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+
+.blur {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #000;
+    opacity: 50%;
+    z-index: 1;
+}
