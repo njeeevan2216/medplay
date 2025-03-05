@@ -132,3 +132,35 @@ input[type="range"]::-moz-range-thumb {
     opacity: 50%;
     z-index: 1;
 }
+
+@media only screen and (max-width: 700px){
+
+        input[type="range"] {
+            width: 250px; /* Wide for horizontal */
+            height: 8px; /* Thin track */
+            writing-mode: horizontal-tb; /* Switch to horizontal */
+            -webkit-writing-mode: horizontal-tb;
+            -moz-writing-mode: horizontal-tb;
+            direction: ltr; /* Normal movement */
+        }
+        .eq-holder{
+            width: 400px;
+            height: 450px;
+        }
+        .slider-container{
+            flex-direction: row;
+            width: fit-content;
+        }
+        label{
+            width: 55px;
+        }
+        .slider-holders{
+            flex-direction: column;
+            gap: 10px;
+        }
+        .db{
+            flex-direction: row-reverse;
+            padding-top: 0px;
+            padding-left: 62px;
+        }
+}
