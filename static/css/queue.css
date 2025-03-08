@@ -61,12 +61,21 @@
     align-items: center;
     padding: 5px;
     cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
     background: var(--card-back);
     border-radius: 17px;
     height: fit-content;
     border: 3px solid var(--out-accent);
     width: fit-content;
     margin-top: 10px;
+}
+
+.queue-item:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
 }
 
 .q-art {
@@ -93,5 +102,8 @@
 
 
 .queue-item.dragging {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
     background-color: #f0f0f0;
 }

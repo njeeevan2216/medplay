@@ -393,7 +393,7 @@ audioPlayerEvent.onended = () => {
     }
     else 
     {
-        playNextInQueue;
+        playNextInQueue();
     }
 };
 
