@@ -24,6 +24,10 @@ const bass = context.createBiquadFilter();
 bass.type = 'lowshelf';
 bass.frequency.value = 60; // Adjust for bass
 
+const bass2 = context.createBiquadFilter();
+bass2.type = 'lowshelf';
+bass2.frequency.value = 125; // Adjust for bass
+
 const lowMid = context.createBiquadFilter();
 lowMid.type = 'peaking';
 lowMid.frequency.value = 250; // Low mid frequencies
@@ -54,7 +58,8 @@ air.frequency.value = 16000; // Air
 
 // Connect nodes
 source.connect(bass);
-bass.connect(lowMid);
+bass.connect(bass2);
+bass2.connect(lowMid);
 lowMid.connect(mid);
 mid.connect(highMid);
 highMid.connect(treble);
@@ -66,6 +71,7 @@ air.connect(context.destination);
 // Reset EQ
 function reset() {
     document.getElementById('bass').value = 0;
+    document.getElementById('bass2').value = 0;
     document.getElementById('lowMid').value = 0;
     document.getElementById('mid').value = 0;
     document.getElementById('highMid').value = 0;
@@ -74,6 +80,7 @@ function reset() {
     document.getElementById('brilliance').value = 0;
     document.getElementById('air').value = 0;
     bass.gain.value = 0;
+    bass2.gain.value = 0;
     lowMid.gain.value = 0;
     mid.gain.value = 0;
     highMid.gain.value = 0;
@@ -86,6 +93,10 @@ function reset() {
 // EQ Controls
 document.getElementById('bass').addEventListener('input', (e) => {
     bass.gain.value = e.target.value;
+});
+
+document.getElementById('bass2').addEventListener('input', (e) => {
+    bass2.gain.value = e.target.value;
 });
 
 document.getElementById('lowMid').addEventListener('input', (e) => {
