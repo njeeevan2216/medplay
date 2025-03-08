@@ -159,9 +159,6 @@ img {
 }
 
 @media only screen and (max-width: 500px) { 
-    .artist-name-vanish {
-        display: none;
-    }
     
     .card {
         display: flex;
